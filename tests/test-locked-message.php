@@ -79,8 +79,8 @@ function saito_ce_assert_no_throw( $label, callable $fn ) {
 }
 
 $default_message = saito_ce_test_invoke_get_locked_message( '', '2026-12-24' );
-saito_ce_assert( 'message vide => repli sur le message par défaut', true, str_contains( $default_message, 'Cette case n’est pas encore ouvrable' ) );
-saito_ce_assert( 'message par défaut => %s remplacé par la date', true, str_contains( $default_message, '2026-12-24' ) );
+saito_ce_assert( 'message vide => repli sur le message par défaut', true, false !== strpos( $default_message, 'Cette case n’est pas encore ouvrable' ) );
+saito_ce_assert( 'message par défaut => %s remplacé par la date', true, false !== strpos( $default_message, '2026-12-24' ) );
 
 $no_placeholder = saito_ce_test_invoke_get_locked_message( 'Reviens bientôt !', '2026-12-24' );
 
@@ -91,9 +91,9 @@ $with_percent = saito_ce_assert_no_throw(
 	}
 );
 if ( null !== $with_percent ) {
-	saito_ce_assert( 'le "%s" a bien été remplacé par la date', true, str_contains( $with_percent, '2026-12-24' ) );
-	saito_ce_assert( 'le littéral "%s" ne subsiste pas', false, str_contains( $with_percent, '%s' ) );
-	saito_ce_assert( 'le "%" isolé du texte custom est conservé tel quel', true, str_contains( $with_percent, '-10%' ) );
+	saito_ce_assert( 'le "%s" a bien été remplacé par la date', true, false !== strpos( $with_percent, '2026-12-24' ) );
+	saito_ce_assert( 'le littéral "%s" ne subsiste pas', false, false !== strpos( $with_percent, '%s' ) );
+	saito_ce_assert( 'le "%" isolé du texte custom est conservé tel quel', true, false !== strpos( $with_percent, '-10%' ) );
 }
 
 saito_ce_assert( 'message custom sans %s => la date est ajoutée à la fin', 'Reviens bientôt ! 2026-12-24', $no_placeholder );
