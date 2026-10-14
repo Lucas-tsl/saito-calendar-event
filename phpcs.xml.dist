@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="SaitoCalendarEvent">
+    <description>Règles de code pour le plugin Saito Calendar Event</description>
+
+    <file>.</file>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/build/*</exclude-pattern>
+    <exclude-pattern>/tests/*</exclude-pattern>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+
+    <config name="minimum_supported_wp_version" value="6.0"/>
+
+    <!-- Sécurité : échappement, sanitisation, nonces -->
+    <rule ref="WordPress.Security"/>
+
+    <!-- Internationalisation -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="saito-calendar-event"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Bonnes pratiques d'enregistrement des scripts/styles -->
+    <rule ref="WordPress.WP.EnqueuedResources"/>
+
+    <!-- Fonctions de debug oubliées -->
+    <rule ref="WordPress.PHP.DevelopmentFunctions"/>
+
+    <!-- Requêtes directes en base : justifiées une par une -->
+    <rule ref="WordPress.DB"/>
+
+    <!-- Préfixe obligatoire pour toutes les fonctions/constantes/classes/hooks globaux. -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="saito_ce"/>
+                <element value="SAITO_CE"/>
+                <element value="Saito_CE"/>
+                <element value="saito_calendar_event"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

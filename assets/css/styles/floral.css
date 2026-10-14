@@ -1,0 +1,430 @@
+/* ======================================================================== *
+ * Habillages "Floral bleu et argent", "Floral blanc et or" et "Floral duo" :
+ * fleurs au trait (anémones, eucalyptus, bourgeons), pétales et feuilles
+ * pleins, points pailletés, en dorure argent sur bleu roi ou or sur blanc.
+ * Portes à double filet et tailles variées (disposition mosaïque) ; seules
+ * les couleurs changent d'une variante à l'autre, via les variables
+ * ci-dessous. Typographie : Inter / Cardo si le thème les fournit, sinon
+ * polices système. Chargé seulement quand un calendrier utilise l'un de ces
+ * habillages.
+ * ======================================================================== */
+.saito-ce-calendar.saito-ce-style-floral-blue {
+	--saito-ce-accent: #0b57b3;
+	--saito-ce-accent-dark: #083f86;
+	--saito-ce-bg: #0a4ea3;
+	--saito-ce-text: #f4f7fb;
+	--saito-ce-radius: 2px;
+	--saito-ce-border: none;
+	--saito-ce-foil: #d9e1ec;
+	--saito-ce-foil-soft: rgba(217, 225, 236, 0.55);
+	--saito-ce-door: #1360bf;
+	--saito-ce-door-deep: #0a4ea3;
+	--saito-ce-number: #f4f7fb;
+	--saito-ce-open-bg: #4a84d0;
+	--saito-ce-open-number: #fff;
+	--saito-ce-badge-bg: #fff;
+	--saito-ce-badge-text: #0b57b3;
+	--saito-ce-glow: rgba(217, 225, 236, 0.75);
+	--saito-ce-ink: #0b57b3;
+	--saito-ce-countdown: #fff;
+	--saito-ce-confetti: #d9e1ec, #fff, #4a84d0, #a9c2dc;
+	--saito-ce-floral-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23d9e1ec' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='1'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23d9e1ec'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23d9e1ec'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3C/svg%3E");
+	--saito-ce-floral-door: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23d9e1ec' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='.6'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23d9e1ec'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23d9e1ec'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3C/svg%3E");
+}
+
+.saito-ce-calendar.saito-ce-style-floral-gold {
+	--saito-ce-accent: #c9962e;
+	--saito-ce-accent-dark: #a8781f;
+	--saito-ce-bg: #fbfaf6;
+	--saito-ce-text: #a8781f;
+	--saito-ce-radius: 2px;
+	--saito-ce-border: none;
+	--saito-ce-foil: #e0b44c;
+	--saito-ce-foil-soft: rgba(224, 180, 76, 0.55);
+	--saito-ce-door: #fff;
+	--saito-ce-door-deep: #f7f3ea;
+	--saito-ce-number: #b07f22;
+	--saito-ce-open-bg: #f3ead7;
+	--saito-ce-open-number: #8a6219;
+	--saito-ce-badge-bg: #c9962e;
+	--saito-ce-badge-text: #fff;
+	--saito-ce-glow: rgba(224, 180, 76, 0.6);
+	--saito-ce-ink: #8a6219;
+	--saito-ce-countdown: #8a6219;
+	--saito-ce-confetti: #e0b44c, #f3d58f, #c9962e, #fff4d6;
+	--saito-ce-floral-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23e0b44c' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='1'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23e0b44c'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23e0b44c'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3C/svg%3E");
+	--saito-ce-floral-door: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23e0b44c' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='.6'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23e0b44c'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23e0b44c'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3C/svg%3E");
+}
+
+.saito-ce-calendar:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) {
+	font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* --- Fond : motif floral en dorure ------------------------------------- */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-grid {
+	gap: 12px;
+	padding: 22px;
+	border-radius: 2px;
+	background: var(--saito-ce-floral-grid) 0 0 / 260px 260px, var(--saito-ce-bg);
+
+	/* Double filet intérieur, comme le bord d'une boîte. */
+	box-shadow:
+		inset 0 0 0 7px var(--saito-ce-bg),
+		inset 0 0 0 8px var(--saito-ce-foil),
+		inset 0 0 0 11px var(--saito-ce-bg),
+		inset 0 0 0 12px var(--saito-ce-foil-soft);
+}
+
+/* --- Portes ------------------------------------------------------------- */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case {
+	position: relative;
+	color: var(--saito-ce-number);
+	background:
+		var(--saito-ce-floral-door) var(--saito-ce-floral-pos, 30% 40%) / 240px 240px,
+		linear-gradient(160deg, var(--saito-ce-door), var(--saito-ce-door-deep));
+	box-shadow:
+		inset 0 0 0 4px var(--saito-ce-door),
+		inset 0 0 0 5px var(--saito-ce-foil),
+		0 3px 10px rgba(0, 0, 0, 0.18);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case-day,
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case-door-day {
+	font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-size: 1.2em;
+	line-height: 1;
+	letter-spacing: 0.02em;
+
+	/* Halo de la couleur de la porte : garde le numéro lisible quand une
+	   fleur du motif passe derrière. */
+	text-shadow: 0 0 6px var(--saito-ce-door), 0 0 2px var(--saito-ce-door);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case-countdown {
+	/* Plus grand et plus contrasté qu'avant (or clair sur blanc illisible). */
+	font-size: 0.34em;
+	font-weight: 700;
+	color: var(--saito-ce-countdown, var(--saito-ce-number));
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case:hover {
+	transform: translateY(-3px);
+	box-shadow:
+		inset 0 0 0 4px var(--saito-ce-door),
+		inset 0 0 0 5px var(--saito-ce-foil),
+		0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-locked {
+	color: var(--saito-ce-number);
+	cursor: not-allowed;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-locked:hover {
+	transform: none;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-expired {
+	color: var(--saito-ce-number);
+	filter: grayscale(0.7);
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-expired:hover {
+	transform: none;
+}
+
+/* Case du jour : halo de dorure qui scintille. */
+@keyframes saito-ce-floral-glow {
+	0%, 100% { box-shadow: inset 0 0 0 4px var(--saito-ce-door), inset 0 0 0 5px var(--saito-ce-foil), 0 0 0 2px var(--saito-ce-foil), 0 0 14px 2px var(--saito-ce-glow); }
+	50% { box-shadow: inset 0 0 0 4px var(--saito-ce-door), inset 0 0 0 5px var(--saito-ce-foil), 0 0 0 2px var(--saito-ce-foil), 0 0 28px 8px var(--saito-ce-glow); }
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-available {
+	animation-name: saito-ce-floral-glow;
+	animation-duration: 2.2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-today {
+	outline: none;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-today::before {
+	top: 7px;
+	border-radius: 0;
+	background: var(--saito-ce-badge-bg);
+	color: var(--saito-ce-badge-text);
+	font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+	font-size: 8px;
+	letter-spacing: 0.14em;
+}
+
+/* Case ouverte : teinte plus claire, toujours fleurie. */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case.is-opened {
+	opacity: 1;
+	color: var(--saito-ce-open-number);
+	background:
+		var(--saito-ce-floral-door) var(--saito-ce-floral-pos, 30% 40%) / 240px 240px,
+		var(--saito-ce-open-bg);
+	box-shadow:
+		inset 0 0 0 4px var(--saito-ce-open-bg),
+		inset 0 0 0 5px var(--saito-ce-foil),
+		inset 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Porte qui s'ouvre (cf. openDoor()) : le battant garde le filet. */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case-door {
+	box-shadow: inset 0 0 0 4px var(--saito-ce-door), inset 0 0 0 5px var(--saito-ce-foil);
+}
+
+/* Cadrage du motif différent d'une porte à l'autre, comme des morceaux
+   du même papier. */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case:nth-child(5n+1) {
+	--saito-ce-floral-pos: 10% 20%;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case:nth-child(5n+2) {
+	--saito-ce-floral-pos: 80% 70%;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case:nth-child(5n+3) {
+	--saito-ce-floral-pos: 55% 5%;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case:nth-child(5n+4) {
+	--saito-ce-floral-pos: 95% 35%;
+}
+
+/* --- Portes de tailles variées ------------------------------------------ *
+ * Forme et place : data-shape et --saito-ce-area (Saito_CE_Public::
+ * mosaic_arrangement()), grille commune dans frontend.css. */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case[data-shape="big"] .saito-ce-case-day,
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case[data-shape="big"] .saito-ce-case-door-day {
+	font-size: 2.2em;
+	font-weight: 400;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case[data-shape="tall"] .saito-ce-case-day,
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-case[data-shape="wide"] .saito-ce-case-day {
+	font-size: 1.5em;
+}
+
+@media (max-width: 700px) {
+	:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-grid {
+		gap: 8px;
+		padding: 16px;
+	}
+}
+
+/* --- Progression -------------------------------------------------------- */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-progress-track {
+	background: rgba(0, 0, 0, 0.08);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-progress-bar {
+	background: linear-gradient(90deg, var(--saito-ce-accent), var(--saito-ce-foil));
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-progress-label {
+	font-size: 0.75em;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+/* --- Modale : bandeau floral en tête, bouton dans la couleur du thème --- */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-modal-content {
+	overflow: hidden;
+	border-radius: 2px;
+	padding: 96px 28px 28px;
+	font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+	color: #1d1d1b;
+	background: #fff;
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-modal-content::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 72px;
+	background: var(--saito-ce-floral-grid) center / 260px 260px, var(--saito-ce-bg);
+	border-bottom: 1px solid var(--saito-ce-foil);
+	pointer-events: none;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-modal-close {
+	z-index: 1;
+	color: var(--saito-ce-number);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-modal-title {
+	font-family: Cardo, Georgia, "Times New Roman", serif;
+	font-weight: 400;
+	font-size: 1.6em;
+	color: var(--saito-ce-ink);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-modal-code {
+	font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	color: var(--saito-ce-ink);
+	background: #fff;
+	border: 1px dashed var(--saito-ce-foil);
+	border-radius: 0;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-apply-button {
+	background: var(--saito-ce-ink);
+	color: #fff;
+	border-radius: 0;
+	font-size: 0.8em;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-apply-button:hover:not(:disabled) {
+	background: var(--saito-ce-ink);
+	filter: brightness(0.85);
+}
+
+/* ======================================================================== *
+ * Habillage "Floral duo" — mélange des deux variantes : fond blanc ivoire
+ * aux fleurs dorées, portes alternant bleu roi aux fleurs argentées et
+ * blanc aux fleurs dorées, grandes portes bleues, cadre or et bleu, modale
+ * à bandeau bleu souligné d'or. Reprend toutes les règles partagées des
+ * habillages floraux ci-dessus ; seules les couleurs sont définies ici,
+ * au niveau du calendrier (portes blanches) et par porte (portes bleues).
+ * ======================================================================== */
+.saito-ce-calendar.saito-ce-style-floral-duo {
+	--saito-ce-accent: #0b57b3;
+	--saito-ce-accent-dark: #083f86;
+	--saito-ce-bg: #fbfaf6;
+	--saito-ce-text: #0b57b3;
+	--saito-ce-radius: 2px;
+	--saito-ce-border: none;
+	--saito-ce-foil: #e0b44c;
+	--saito-ce-foil-soft: rgba(224, 180, 76, 0.55);
+	--saito-ce-door: #fff;
+	--saito-ce-door-deep: #f7f3ea;
+	--saito-ce-number: #b07f22;
+	--saito-ce-open-bg: #f3ead7;
+	--saito-ce-open-number: #8a6219;
+	--saito-ce-badge-bg: #c9962e;
+	--saito-ce-badge-text: #fff;
+	--saito-ce-glow: rgba(224, 180, 76, 0.6);
+	--saito-ce-ink: #0b57b3;
+	--saito-ce-countdown: #8a6219;
+	--saito-ce-confetti: #1360bf, #d9e1ec, #e0b44c, #fff, #f3d58f;
+	--saito-ce-floral-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23e0b44c' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='1'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23e0b44c'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23e0b44c'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3C/svg%3E");
+	--saito-ce-floral-door: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23e0b44c' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='.6'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23e0b44c'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23e0b44c'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23e0b44c'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23e0b44c' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23e0b44c' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23e0b44c' stroke='none'/%3E%3C/svg%3E");
+}
+
+/* Une porte sur deux en bleu roi, filet et fleurs argent.
+   Les grandes portes (12n+1) et la porte large (12n+7) en font partie. */
+
+/* Disposition fixe 1→24 : jours choisis pour répartir le bleu (dont les
+   deux grandes portes) ; sinon, une porte sur deux. L'ordre HTML suit
+   l'ordre visuel : "une sur deux" y dessinerait des bandes. */
+.saito-ce-style-floral-duo:not(.saito-ce-mosaic-fixed) .saito-ce-case:nth-child(odd),
+.saito-ce-style-floral-duo.saito-ce-mosaic-fixed .saito-ce-case:is([data-day="1"], [data-day="24"], [data-day="3"], [data-day="4"], [data-day="5"], [data-day="7"], [data-day="8"], [data-day="9"], [data-day="10"], [data-day="11"], [data-day="12"], [data-day="13"]) {
+	--saito-ce-door: #1360bf;
+	--saito-ce-door-deep: #0a4ea3;
+	--saito-ce-foil: #d9e1ec;
+	--saito-ce-number: #f4f7fb;
+	--saito-ce-open-bg: #4a84d0;
+	--saito-ce-open-number: #fff;
+	--saito-ce-badge-bg: #fff;
+	--saito-ce-badge-text: #0b57b3;
+	--saito-ce-countdown: #fff;
+
+	/* Halo doré même sur porte bleue : un halo argent se perdrait sur le
+	   fond ivoire. */
+	--saito-ce-glow: rgba(224, 180, 76, 0.7);
+	--saito-ce-floral-door: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23d9e1ec' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='.6'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23d9e1ec'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23d9e1ec'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3C/svg%3E");
+}
+
+/* Cadre : filet or à l'extérieur, filet bleu à l'intérieur. */
+.saito-ce-style-floral-duo .saito-ce-grid {
+	box-shadow:
+		inset 0 0 0 7px var(--saito-ce-bg),
+		inset 0 0 0 8px #e0b44c,
+		inset 0 0 0 11px var(--saito-ce-bg),
+		inset 0 0 0 12px rgba(11, 87, 179, 0.6);
+}
+
+/* Modale : bandeau bleu souligné d'or. */
+.saito-ce-style-floral-duo .saito-ce-modal-content::before {
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260' fill='none' stroke='%23d9e1ec' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' opacity='1'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cpath d='M0-7C-16-20-14-46 0-52C14-46 16-20 0-7z'/%3E%3Cpath d='M0-14V-44M-6-18L-4-40M6-18L4-40'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='translate(72 84)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cg transform='translate(208 100) scale(.5)'%3E%3Cuse href='%23p'/%3E%3Cuse href='%23p' transform='rotate(72)'/%3E%3Cuse href='%23p' transform='rotate(144)'/%3E%3Cuse href='%23p' transform='rotate(216)'/%3E%3Cuse href='%23p' transform='rotate(288)'/%3E%3Ccircle r='8'/%3E%3Ccircle r='3.5' fill='%23d9e1ec'/%3E%3C/g%3E%3Cpath d='M150 252C168 212 190 182 236 152'/%3E%3Cellipse cx='151' cy='224' rx='9' ry='5.5' transform='rotate(-35 151 224)'/%3E%3Cellipse cx='181' cy='204' rx='9' ry='5.5' transform='rotate(-35 181 204)'/%3E%3Cellipse cx='177' cy='186' rx='9' ry='5.5' transform='rotate(-35 177 186)'/%3E%3Cellipse cx='211' cy='170' rx='9' ry='5.5' transform='rotate(-35 211 170)'/%3E%3Cellipse cx='211' cy='156' rx='9' ry='5.5' transform='rotate(-35 211 156)'/%3E%3Cpath d='M108 252c4-20 6-40 2-60M109 212c-8-4-12-10-12-16M109 228c8-4 12-10 12-18'/%3E%3Ccircle cx='110' cy='190' r='2.4' fill='%23d9e1ec'/%3E%3Ccircle cx='96' cy='194' r='1.8' fill='%23d9e1ec'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M180 34c12-14 32-16 42-8c-10 14-30 18-42 8z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M20 200c4-16 18-26 32-26c-2 16-16 26-32 26z'/%3E%3Cpath fill='%23d9e1ec' stroke='none' d='M120 128c6-7 15-7 20 0c-6 7-15 7-20 0z'/%3E%3Ccircle cx='18' cy='120' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='30' cy='132' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='44' cy='116' r='1.2' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='24' cy='150' r='1.6' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='52' cy='140' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='240' cy='30' r='1.3' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='226' cy='46' r='1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='250' cy='56' r='1.5' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='140' cy='30' r='1.1' fill='%23d9e1ec' stroke='none'/%3E%3Ccircle cx='126' cy='18' r='1.4' fill='%23d9e1ec' stroke='none'/%3E%3C/svg%3E") center / 260px 260px, #0a4ea3;
+	border-bottom: 2px solid #e0b44c;
+}
+
+.saito-ce-style-floral-duo .saito-ce-modal-close {
+	color: #fff;
+}
+
+.saito-ce-style-floral-duo .saito-ce-modal-code {
+	border-color: #e0b44c;
+}
+
+/* --- En-tête (masquable, onglet Apparence) ------------------------------ *
+ * Motif floral tout autour et, au centre, une réserve unie avec le titre du
+ * calendrier et son sous-titre en capitales. Posé sur la grille, avec le
+ * même double filet. */
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px 16px;
+	text-align: center;
+	line-height: 1.2;
+	color: var(--saito-ce-header-text, var(--saito-ce-number));
+	background: var(--saito-ce-floral-grid) center / 260px 260px, var(--saito-ce-bg);
+	box-shadow:
+		inset 0 0 0 7px var(--saito-ce-bg),
+		inset 0 0 0 8px var(--saito-ce-foil);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-header > span {
+	display: block;
+	padding: 2px 18px 0;
+	background: var(--saito-ce-bg);
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-header-title {
+	font-size: clamp(22px, 4.2vw, 32px);
+	font-weight: 300;
+	letter-spacing: 0.01em;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-header > .saito-ce-header-title {
+	padding-top: 10px;
+}
+
+:is(.saito-ce-style-floral-blue, .saito-ce-style-floral-gold, .saito-ce-style-floral-duo) .saito-ce-header > .saito-ce-header-sub {
+	padding-bottom: 10px;
+	font-size: 12px;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+}
+
+.saito-ce-calendar.saito-ce-style-floral-blue {
+	--saito-ce-header-text: #f4f7fb;
+}
+
+.saito-ce-calendar.saito-ce-style-floral-gold {
+	--saito-ce-header-text: #8a6219;
+}
+
+.saito-ce-calendar.saito-ce-style-floral-duo {
+	--saito-ce-header-text: #0b57b3;
+}

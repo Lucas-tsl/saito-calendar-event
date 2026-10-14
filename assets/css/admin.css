@@ -1,0 +1,523 @@
+.saito-ce-image-cell {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.saito-ce-image-preview {
+	display: block;
+	margin: 0;
+	border: 1px solid #ddd;
+}
+
+.saito-ce-remove-case {
+	color: #b32d2e;
+}
+
+.saito-ce-product-hint {
+	margin: 4px 0 0;
+	font-size: 11px;
+	line-height: 1.3;
+}
+
+/* --- Onglets (Cases / Apparence / Textes / Utilisation) ------------------ *
+ * Les écrans vivaient dans des encadrés séparés, dont un dans la colonne
+ * latérale ; un seul encadré à onglets les regroupe (cf. admin.js pour la
+ * bascule, purement visuelle — les panneaux restent dans le même
+ * formulaire, soumis que leur onglet soit actif ou non). */
+.saito-ce-admin-tabs-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	border-bottom: 1px solid #c3c4c7;
+	margin-bottom: 16px;
+}
+
+.saito-ce-admin-tab {
+	padding: 10px 14px;
+	background: none;
+	border: none;
+	border-bottom: 3px solid transparent;
+	margin-bottom: -1px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #50575e;
+	cursor: pointer;
+}
+
+.saito-ce-admin-tab:hover {
+	color: #1d2327;
+}
+
+.saito-ce-admin-tab.is-active {
+	color: #2271b1;
+	border-bottom-color: #2271b1;
+}
+
+.saito-ce-admin-tab-panel[hidden] {
+	display: none;
+}
+
+/* --- Grille "bento" des cases (BO) -------------------------------------- *
+ * Remplace l'ancien tableau à 8 colonnes, illisible sur petit écran : une
+ * grille de vignettes responsive, une par case, qui ouvrent chacune une
+ * modale pour la saisie complète (cf. admin.js). */
+.saito-ce-admin-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+	gap: 10px;
+	margin: 12px 0;
+}
+
+.saito-ce-admin-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 8px 6px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.saito-ce-admin-card:hover,
+.saito-ce-admin-card:focus-visible {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* --- Glisser-déposer des cases (SortableJS, cf. admin.js) -------------- */
+.saito-ce-admin-card {
+	position: relative;
+	touch-action: manipulation;
+}
+
+/* Poignée "six points" : indique que la carte se déplace. */
+.saito-ce-admin-card-grip {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 8px;
+	height: 12px;
+	opacity: 0.35;
+	background-image: radial-gradient(circle, #1d2327 1.2px, transparent 1.4px);
+	background-size: 4px 4px;
+}
+
+.saito-ce-admin-card:not(.is-past) {
+	cursor: grab;
+}
+
+.saito-ce-admin-card:hover .saito-ce-admin-card-grip {
+	opacity: 0.7;
+}
+
+.saito-ce-admin-card.is-past .saito-ce-admin-card-grip {
+	display: none;
+}
+
+/* Place d'origine de la case pendant le déplacement. */
+.saito-ce-admin-card.is-drag-ghost {
+	opacity: 0.35;
+	border-style: dashed;
+}
+
+/* Copie qui suit le curseur. */
+.saito-ce-admin-card.is-dragging {
+	cursor: grabbing;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+	transform: rotate(-3deg);
+}
+
+/* Case survolée avec laquelle le contenu va être échangé. */
+.saito-ce-admin-card.is-swap-target {
+	border-color: #2271b1;
+	background: #f0f6fc;
+	box-shadow: 0 0 0 2px #2271b1;
+}
+
+/* Bref signal sur les deux cases après un échange. */
+@keyframes saito-ce-admin-swapped {
+	0% { box-shadow: 0 0 0 3px #00a32a; }
+	100% { box-shadow: 0 0 0 0 rgba(0, 163, 42, 0); }
+}
+
+.saito-ce-admin-card.is-swapped {
+	animation: saito-ce-admin-swapped 1.2s ease-out;
+}
+
+.saito-ce-dnd-feedback {
+	min-height: 1.5em;
+	margin: 0;
+	color: #0f5132;
+}
+
+/* --- Onglet Programmation ---------------------------------------------- */
+.saito-ce-schedule-status {
+	padding: 10px 12px;
+	border-left: 4px solid #c3c4c7;
+	background: #f6f7f7;
+}
+
+.saito-ce-schedule-status.is-live {
+	border-left-color: #00a32a;
+	background: #edfaef;
+}
+
+.saito-ce-schedule-status.is-before {
+	border-left-color: #dba617;
+	background: #fcf9e8;
+}
+
+.saito-ce-schedule-status.is-after {
+	border-left-color: #8c8f94;
+}
+
+.saito-ce-admin-card-day {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.saito-ce-admin-card-thumb {
+	width: 32px;
+	height: 32px;
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.saito-ce-admin-card-thumb img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.saito-ce-admin-card-date {
+	font-size: 10px;
+	color: #50575e;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.saito-ce-admin-card-coupon {
+	font-size: 10px;
+	font-weight: 600;
+	color: #2271b1;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Badges d'état, visibles sans ouvrir la modale (toggle `hidden` par
+ * admin.js à chaque changement de date/coupon, cf. updateCardBadges()) :
+ * "Expirée" (date passée, coupon plus réclamable côté visiteur) et
+ * "Date manquante" (coupon saisi mais sans date, donc jamais débloquable). */
+.saito-ce-admin-card-expired,
+.saito-ce-admin-card-warning {
+	font-size: 10px;
+	font-weight: 600;
+	border-radius: 3px;
+	padding: 1px 6px;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.saito-ce-admin-card-expired {
+	color: #646970;
+	background: #f0f0f1;
+}
+
+.saito-ce-admin-card-warning {
+	color: #8a4b00;
+	background: #fcf0e2;
+}
+
+/* --- Modale de réglages d'une case -------------------------------------- */
+.saito-ce-admin-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 160000; /* au-dessus des éléments d'admin WP (menus ~100000) */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+}
+
+.saito-ce-admin-modal[hidden] {
+	display: none;
+}
+
+body.saito-ce-admin-modal-open {
+	overflow: hidden;
+}
+
+.saito-ce-admin-modal-overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.saito-ce-admin-modal-content {
+	position: relative;
+	background: #fff;
+	border-radius: 4px;
+	width: 100%;
+	max-width: 880px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 24px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.saito-ce-admin-modal-close {
+	position: absolute;
+	top: 8px;
+	right: 12px;
+	background: none;
+	border: none;
+	font-size: 1.6em;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.saito-ce-case-fields th {
+	width: 140px;
+}
+
+.saito-ce-case-fields input[type="text"],
+.saito-ce-case-fields input[type="date"],
+.saito-ce-case-fields input[type="number"],
+.saito-ce-case-fields textarea {
+	width: 100%;
+}
+
+/* Date de déblocage déjà passée : code promo verrouillé en lecture (le
+ * champ reste en readonly, pas disabled, pour rester soumis avec le
+ * formulaire — cf. admin.js). */
+
+/* Vérification du code promo contre WooCommerce (cf. updateCouponCheck()). */
+.saito-ce-coupon-check.is-warning {
+	color: #8a4b00;
+}
+
+.saito-ce-coupon-check.is-ok {
+	color: #0f5132;
+}
+
+/* La liste déroulante de la recherche produit (select2) est ajoutée à la
+   fin de <body> avec un z-index ~1051 : sans ça, elle s'ouvrirait derrière
+   notre modale de case (z-index 160000). */
+body.saito-ce-admin-modal-open .select2-container--open .select2-dropdown {
+	z-index: 160010;
+}
+
+/* --- Liste des codes promo (cf. admin-pickers.js) ---------------------- */
+.saito-ce-coupon-wrap {
+	position: relative;
+}
+
+.saito-ce-coupon-picker {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	z-index: 10;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+	overflow: hidden;
+}
+
+.saito-ce-coupon-picker[hidden] {
+	display: none;
+}
+
+.saito-ce-coupon-count {
+	padding: 6px 12px;
+	font-size: 11px;
+	color: #646970;
+	background: #f6f7f7;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.saito-ce-coupon-list {
+	max-height: 260px;
+	margin: 0;
+	padding: 4px 0;
+	overflow-y: auto;
+	list-style: none;
+}
+
+.saito-ce-coupon-option {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	margin: 0;
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+.saito-ce-coupon-option:hover,
+.saito-ce-coupon-option.is-active {
+	background: #f0f6fc;
+}
+
+.saito-ce-coupon-option.is-active {
+	box-shadow: inset 3px 0 0 #2271b1;
+}
+
+.saito-ce-coupon-option-main {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.saito-ce-coupon-option-code {
+	font-family: Menlo, Consolas, monospace;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	color: #1d2327;
+}
+
+.saito-ce-coupon-option-value {
+	font-weight: 600;
+	color: #2271b1;
+}
+
+.saito-ce-coupon-option-meta {
+	font-size: 12px;
+	color: #646970;
+}
+
+.saito-ce-coupon-empty {
+	margin: 0;
+	padding: 12px;
+	font-size: 12px;
+	color: #646970;
+}
+
+/* Pastilles de statut, communes aux deux listes. */
+.saito-ce-pill {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1.6;
+}
+
+.saito-ce-pill.is-valid {
+	color: #0f5132;
+	background: #e7f5ec;
+}
+
+.saito-ce-pill.is-expired,
+.saito-ce-pill.is-used-up {
+	color: #8a2424;
+	background: #fbeaea;
+}
+
+/* --- Recherche de produit (selectWoo, cf. admin-pickers.js) ------------ */
+.saito-ce-product-option {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
+}
+
+.saito-ce-product-option-thumb {
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	object-fit: cover;
+	background: #f0f0f1;
+}
+
+.saito-ce-product-option.is-selection .saito-ce-product-option-thumb {
+	width: 22px;
+	height: 22px;
+}
+
+.saito-ce-product-option-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.saito-ce-product-option-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.saito-ce-product-option-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	color: #646970;
+}
+
+.saito-ce-product-dropdown .select2-results__option--highlighted .saito-ce-product-option-meta {
+	color: inherit;
+}
+
+.saito-ce-product-dropdown .select2-results > .select2-results__options {
+	max-height: 300px;
+}
+
+.saito-ce-case-fields .select2-container .select2-selection--single {
+	height: auto;
+	min-height: 36px;
+	display: flex;
+	align-items: center;
+}
+
+.saito-ce-case-fields .select2-container .select2-selection--single .select2-selection__rendered {
+	line-height: 1.4;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.saito-ce-field-coupon:read-only {
+	background: #f0f0f1;
+	color: #646970;
+	cursor: not-allowed;
+}
+
+.saito-ce-admin-modal-actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 16px;
+}
+
+#saito-ce-preview {
+	/* L'aperçu affiche désormais les vraies cases enregistrées (nombre
+	   variable, jusqu'à 24+) plutôt que 4 cases fictives : plus de place
+	   qu'avant pour rester lisible. */
+	max-width: 620px;
+	margin: 0;
+}
+
+#saito-ce-preview .saito-ce-grid-preview {
+	grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+}
+
+#saito-ce-preview .saito-ce-case {
+	cursor: default;
+}

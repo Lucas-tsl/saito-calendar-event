@@ -1,0 +1,380 @@
+/* ======================================================================== *
+ * Habillage "Étincelles" : rouge corail, dorure (feux d'artifice, étoiles,
+ * rayons), rubans rose poudré, portes rectangulaires à double filet or et
+ * numéro en serif doré entre deux "soleils". Polices embarquées dans le
+ * plugin (licence OFL, cf. assets/fonts/), sans appel à un service
+ * externe : Bodoni Moda pour les numéros et sous-titres, Great Vibes pour
+ * le titre de l'en-tête.
+ * Chargé seulement quand un calendrier utilise cet habillage.
+ * ======================================================================== */
+@font-face {
+	font-family: "Saito CE Bodoni Moda";
+	src: url("../../fonts/bodoni-moda-latin-400-normal.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Saito CE Great Vibes";
+	src: url("../../fonts/great-vibes-latin-400-normal.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+.saito-ce-calendar.saito-ce-style-sparkle {
+	--saito-ce-accent: #e8424a;
+	--saito-ce-accent-dark: #b81c26;
+	--saito-ce-bg: #ec3d46;
+	--saito-ce-text: #fdf0cc;
+	--saito-ce-radius: 3px;
+	--saito-ce-border: none;
+	--saito-ce-gold: #e2b65f;
+	--saito-ce-gold-light: #f8e2a6;
+	--saito-ce-blush: #f4a595;
+
+	/* Confettis (cf. burstConfetti()) : étoiles dorées et rose poudré. */
+	--saito-ce-confetti: #e2b65f, #f8e2a6, #fff1c9, #f4a595, #fff;
+	--saito-ce-confetti-shapes: star, circle;
+}
+
+.saito-ce-style-sparkle .saito-ce-case-day,
+.saito-ce-style-sparkle .saito-ce-case-door-day,
+.saito-ce-style-sparkle .saito-ce-modal-title {
+	font-family: "Saito CE Bodoni Moda", "Bodoni 72", "Bodoni MT", Didot, "Didot LT STD", "Playfair Display", Georgia, "Times New Roman", serif;
+	font-weight: 400;
+}
+
+/* --- Fond : rouge corail, paillettes, feu d'artifice, étoile ------------ */
+.saito-ce-style-sparkle .saito-ce-grid {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	padding: 22px;
+	border-radius: 4px;
+	background:
+		radial-gradient(circle at 20% 30%, rgba(248, 226, 166, 0.9) 0 1px, transparent 1.6px) 0 0 / 37px 37px,
+		radial-gradient(circle at 70% 60%, rgba(226, 182, 95, 0.75) 0 1.2px, transparent 1.8px) 0 0 / 53px 53px,
+		radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.45) 0 0.8px, transparent 1.3px) 0 0 / 23px 23px,
+		radial-gradient(ellipse at 50% 35%, #f6565d 0%, #ec3d46 55%, #c9252e 100%);
+
+	/* Double filet doré intérieur, comme le bord de la boîte. */
+	box-shadow:
+		inset 0 0 0 7px #ec3d46,
+		inset 0 0 0 8px var(--saito-ce-gold),
+		inset 0 0 0 11px #ec3d46,
+		inset 0 0 0 12px rgba(226, 182, 95, 0.55);
+}
+
+/* Gerbe de rayons dorés partant du haut (feu d'artifice). */
+.saito-ce-style-sparkle .saito-ce-grid::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: repeating-conic-gradient(from 90deg at 50% -8%, rgba(248, 226, 166, 0.3) 0 0.5deg, transparent 0.5deg 4.5deg);
+	-webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, #000 0%, transparent 75%);
+	mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, #000 0%, transparent 75%);
+}
+
+/* Grande étoile de la marque en filigrane, derrière les cases. */
+.saito-ce-style-sparkle .saito-ce-grid::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: -1;
+	width: min(46%, 380px);
+	aspect-ratio: 1;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	background: radial-gradient(circle, rgba(248, 226, 166, 0.5), rgba(226, 182, 95, 0.15) 70%);
+	clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+	opacity: 0.35;
+}
+
+/* --- Portes ------------------------------------------------------------- */
+.saito-ce-style-sparkle .saito-ce-case {
+	position: relative;
+	color: var(--saito-ce-gold-light);
+	background:
+		repeating-conic-gradient(from 90deg at 50% 0%, rgba(248, 226, 166, 0.4) 0 1.2deg, transparent 1.2deg 10deg) top / 100% 28% no-repeat,
+		repeating-conic-gradient(from -90deg at 50% 100%, rgba(248, 226, 166, 0.4) 0 1.2deg, transparent 1.2deg 10deg) bottom / 100% 28% no-repeat,
+		linear-gradient(160deg, #f4535b, #e63c44 60%, #d6313a);
+	box-shadow:
+		inset 0 0 0 4px #e23a42,
+		inset 0 0 0 5px var(--saito-ce-gold),
+		inset 0 0 0 8px #e23a42,
+		inset 0 0 0 9px rgba(226, 182, 95, 0.55),
+		0 3px 8px rgba(110, 10, 15, 0.35);
+	transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.saito-ce-style-sparkle .saito-ce-case-day {
+	font-size: 1.15em;
+	line-height: 1;
+
+	/* Dorure : dégradé appliqué au texte. drop-shadow plutôt que
+	   text-shadow, qui passerait par-dessus un texte "découpé". */
+	background: linear-gradient(180deg, #fff6dc 0%, #f3d58f 55%, #fff1c9 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	filter: drop-shadow(0 1px 0 rgba(110, 10, 15, 0.45));
+}
+
+/* --- Portes de tailles variées ------------------------------------------ *
+ * Forme et place de chaque porte : data-shape et --saito-ce-area, posés par
+ * Saito_CE_Public::mosaic_arrangement() ; règles de grille communes dans
+ * frontend.css (section "Mosaïque"). Ici, seulement l'habillage. */
+.saito-ce-style-sparkle .saito-ce-grid {
+	gap: 12px;
+}
+
+.saito-ce-style-sparkle .saito-ce-case[data-shape="big"] .saito-ce-case-day,
+.saito-ce-style-sparkle .saito-ce-case[data-shape="big"] .saito-ce-case-door-day {
+	font-size: 2.1em;
+}
+
+.saito-ce-style-sparkle .saito-ce-case[data-shape="tall"] .saito-ce-case-day,
+.saito-ce-style-sparkle .saito-ce-case[data-shape="wide"] .saito-ce-case-day {
+	font-size: 1.45em;
+}
+
+/* Étoile dorée sur les grandes portes, rappel de l'étoile de la boîte. */
+.saito-ce-style-sparkle .saito-ce-case[data-shape="big"]::after {
+	content: "";
+	position: absolute;
+	bottom: 9%;
+	left: 50%;
+	width: 15%;
+	aspect-ratio: 1;
+	transform: translateX(-50%);
+	background: linear-gradient(180deg, #fff1c9, #e2b65f);
+	clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+	pointer-events: none;
+}
+
+@media (max-width: 700px) {
+	.saito-ce-style-sparkle .saito-ce-grid {
+		gap: 8px;
+		padding: 16px;
+	}
+}
+
+.saito-ce-style-sparkle .saito-ce-case:hover {
+	transform: translateY(-3px);
+	box-shadow:
+		inset 0 0 0 4px #e23a42,
+		inset 0 0 0 5px var(--saito-ce-gold-light),
+		inset 0 0 0 8px #e23a42,
+		inset 0 0 0 9px rgba(248, 226, 166, 0.7),
+		0 8px 18px rgba(110, 10, 15, 0.4);
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-locked {
+	color: var(--saito-ce-gold-light);
+	cursor: not-allowed;
+	filter: saturate(0.8) brightness(0.95);
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-locked:hover {
+	transform: none;
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-expired {
+	color: rgba(248, 226, 166, 0.7);
+	background: linear-gradient(160deg, #c83a41, #a92a31);
+	filter: saturate(0.6);
+	opacity: 0.7;
+	cursor: not-allowed;
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-expired:hover {
+	transform: none;
+}
+
+/* Case du jour : halo doré qui scintille. */
+@keyframes saito-ce-sparkle-glow {
+	0%, 100% { box-shadow: inset 0 0 0 4px #ea434b, inset 0 0 0 5px var(--saito-ce-gold-light), 0 0 0 2px var(--saito-ce-gold), 0 0 14px 2px rgba(248, 226, 166, 0.55); }
+	50% { box-shadow: inset 0 0 0 4px #ea434b, inset 0 0 0 5px var(--saito-ce-gold-light), 0 0 0 2px var(--saito-ce-gold-light), 0 0 26px 7px rgba(248, 226, 166, 0.85); }
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-available {
+	background:
+		repeating-conic-gradient(from 90deg at 50% 0%, rgba(255, 246, 220, 0.55) 0 1.2deg, transparent 1.2deg 10deg) top / 100% 28% no-repeat,
+		repeating-conic-gradient(from -90deg at 50% 100%, rgba(255, 246, 220, 0.55) 0 1.2deg, transparent 1.2deg 10deg) bottom / 100% 28% no-repeat,
+		linear-gradient(160deg, #f75f66, #ea434b 60%, #db3640);
+	animation-name: saito-ce-sparkle-glow;
+	animation-duration: 2.2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-today {
+	outline: none;
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-today::before {
+	content: "★ " attr(data-today-label);
+	top: 6px;
+	background: linear-gradient(180deg, #fbe9b7, #e2b65f);
+	color: #8f1a20;
+}
+
+/* Case ouverte : l'intérieur rose poudré de la boîte. */
+.saito-ce-style-sparkle .saito-ce-case.is-opened {
+	opacity: 1;
+	color: #9e1f27;
+	background: radial-gradient(circle at 50% 40%, #fcd9cf 0%, #f6b3a5 70%, #ef9a8a 100%);
+	box-shadow:
+		inset 0 0 0 5px rgba(226, 182, 95, 0.9),
+		inset 0 3px 10px rgba(158, 31, 39, 0.25);
+}
+
+.saito-ce-style-sparkle .saito-ce-case.is-opened .saito-ce-case-day {
+	background: none;
+	color: #9e1f27;
+	filter: none;
+}
+
+/* Porte qui s'ouvre (cf. openDoor()) : le battant reprend le double filet
+   or, que la copie des couleurs de la case ne transporte pas. */
+.saito-ce-style-sparkle .saito-ce-case-door {
+	box-shadow:
+		inset 0 0 0 4px #e23a42,
+		inset 0 0 0 5px var(--saito-ce-gold),
+		inset 0 0 0 8px #e23a42,
+		inset 0 0 0 9px rgba(226, 182, 95, 0.55);
+}
+
+.saito-ce-style-sparkle .saito-ce-case-door-day {
+	font-size: 1.15em;
+	color: #fdf0cc;
+}
+
+/* --- Progression -------------------------------------------------------- */
+.saito-ce-style-sparkle .saito-ce-progress-track {
+	background: rgba(184, 28, 38, 0.15);
+}
+
+.saito-ce-style-sparkle .saito-ce-progress-bar {
+	background: linear-gradient(90deg, #e2b65f, #f8e2a6, #e2b65f);
+}
+
+/* --- Modale ------------------------------------------------------------- */
+.saito-ce-style-sparkle .saito-ce-modal-content {
+	background: linear-gradient(180deg, #fff3ee 0%, #fff 45%);
+	border-radius: 4px;
+	box-shadow:
+		inset 0 0 0 6px #fff,
+		inset 0 0 0 7px var(--saito-ce-gold),
+		0 24px 60px rgba(110, 10, 15, 0.45);
+	padding: 32px 28px 28px;
+}
+
+.saito-ce-style-sparkle .saito-ce-modal-title {
+	color: #b81c26;
+	font-size: 1.6em;
+}
+
+.saito-ce-style-sparkle .saito-ce-modal-code {
+	background: #fff5ef;
+	border: 1px dashed var(--saito-ce-gold);
+	color: #9e1f27;
+}
+
+.saito-ce-style-sparkle .saito-ce-apply-button {
+	background: linear-gradient(160deg, #f04a52, #c9252e);
+	color: #fdf0cc;
+	border: 1px solid var(--saito-ce-gold);
+	border-radius: 3px;
+	letter-spacing: 0.04em;
+}
+
+.saito-ce-style-sparkle .saito-ce-apply-button:hover:not(:disabled) {
+	background: linear-gradient(160deg, #e03c44, #a91d26);
+}
+
+/* Compte à rebours ("J-3") : plus grand, plus clair et souligné d'une ombre
+   pour rester lisible sur le rouge (il était trop petit et trop pâle). */
+.saito-ce-style-sparkle .saito-ce-case-countdown {
+	font-size: 0.38em;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	color: #fff6dc;
+	opacity: 1;
+	text-shadow: 0 1px 2px rgba(110, 10, 15, 0.7);
+}
+
+/* Gerbe d'étoiles dorées derrière la porte qui s'ouvre (cf. openDoor()),
+   comme le feu d'artifice de la boîte. */
+@keyframes saito-ce-sparkle-burst {
+	0% { transform: translate(-50%, -50%) scale(0.3) rotate(0deg); opacity: 0; }
+	25% { opacity: 1; }
+	100% { transform: translate(-50%, -50%) scale(1.9) rotate(25deg); opacity: 0; }
+}
+
+.saito-ce-style-sparkle .saito-ce-case-burst {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: -1;
+	width: 170%;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	pointer-events: none;
+	background:
+		radial-gradient(circle, rgba(255, 246, 220, 0.9) 0 8%, transparent 9%),
+		repeating-conic-gradient(rgba(248, 226, 166, 0.85) 0 3deg, transparent 3deg 18deg);
+	-webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+	mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+	animation: saito-ce-sparkle-burst 0.9s ease-out forwards;
+}
+
+/* --- En-tête (masquable, onglet Apparence) ------------------------------ *
+ * Posé sur la grille comme le haut de la boîte : même rouge pailleté,
+ * rubans rose poudré et éclats dorés de part et d'autre du titre. */
+.saito-ce-style-sparkle .saito-ce-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 26px 16px 18px;
+	text-align: center;
+	line-height: 1;
+	border-radius: 4px 4px 0 0;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 140' fill='none' stroke-linecap='round'%3E%3Cpath d='M-20 116C70 40 160 150 250 74S330 26 300 112' stroke='%23f4a595' stroke-width='9' opacity='.9'/%3E%3Cpath d='M-20 106C70 30 160 140 250 64S322 22 292 102' stroke='%23e2b65f' stroke-width='1.2'/%3E%3Cpath d='M820 116C730 40 640 150 550 74S470 26 500 112' stroke='%23f4a595' stroke-width='9' opacity='.9'/%3E%3Cpath d='M820 106C730 30 640 140 550 64S478 22 508 102' stroke='%23e2b65f' stroke-width='1.2'/%3E%3Cg fill='%23f8e2a6'%3E%3Cpath transform='translate(120 30)' d='M0-9L2-2L9 0L2 2L0 9L-2 2L-9 0L-2-2Z'/%3E%3Cpath transform='translate(684 28)' d='M0-9L2-2L9 0L2 2L0 9L-2 2L-9 0L-2-2Z'/%3E%3Cpath transform='translate(236 120) scale(.7)' d='M0-9L2-2L9 0L2 2L0 9L-2 2L-9 0L-2-2Z'/%3E%3Cpath transform='translate(572 122) scale(.7)' d='M0-9L2-2L9 0L2 2L0 9L-2 2L-9 0L-2-2Z'/%3E%3C/g%3E%3C/svg%3E") center / cover no-repeat,
+		radial-gradient(circle at 20% 30%, rgba(248, 226, 166, 0.9) 0 1px, transparent 1.6px) 0 0 / 37px 37px,
+		radial-gradient(ellipse at 50% 100%, #f6565d 0%, #ec3d46 60%, #c9252e 100%);
+	box-shadow:
+		inset 0 0 0 7px #ec3d46,
+		inset 0 0 0 8px var(--saito-ce-gold);
+}
+
+.saito-ce-style-sparkle.has-header .saito-ce-grid {
+	border-radius: 0 0 4px 4px;
+}
+
+.saito-ce-style-sparkle .saito-ce-header-sub {
+	font-family: "Saito CE Bodoni Moda", "Bodoni 72", Didot, Georgia, "Times New Roman", serif;
+	font-size: 13px;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: #fff1c9;
+}
+
+.saito-ce-style-sparkle .saito-ce-header-title {
+	margin: -2px 0 2px;
+	font-family: "Saito CE Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
+	font-size: clamp(44px, 9vw, 72px);
+	line-height: 1.15;
+	background: linear-gradient(180deg, #fff6dc 0%, #f3d58f 55%, #e2b65f 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	filter: drop-shadow(0 2px 0 rgba(110, 10, 15, 0.45));
+}

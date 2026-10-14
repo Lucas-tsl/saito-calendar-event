@@ -1,0 +1,19 @@
+{
+    "name": "lucas-tsl/saito-calendar-event",
+    "description": "Calendriers à cases déblocables par date (calendrier de l'Avent, compte à rebours d'un événement), avec codes promo WooCommerce optionnels.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "7.4"
+        }
+    }
+}

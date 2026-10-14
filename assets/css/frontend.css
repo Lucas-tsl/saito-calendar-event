@@ -1,0 +1,941 @@
+.saito-ce-calendar {
+	--saito-ce-accent: #b3282d;
+	--saito-ce-accent-dark: #7a1c1f;
+	--saito-ce-bg: #0f5132;
+	--saito-ce-text: #fff;
+	--saito-ce-radius: 6px;
+	--saito-ce-border: none;
+
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.saito-ce-calendar.saito-ce-style-neutre {
+	--saito-ce-accent: #1d1d1b;
+	--saito-ce-accent-dark: #000;
+	--saito-ce-bg: #f5f5f5;
+}
+
+/* "Éditorial" : aplats francs, sans ombre ni flou, angles à peine arrondis,
+   titres en serif (Cardo si le thème la fournit, sinon Georgia), et mise en
+   page "bento" (cases de tailles variées). */
+.saito-ce-calendar.saito-ce-style-editorial {
+	--saito-ce-accent: #d8613c;
+
+	/* Sauge assez sombre pour tenir le contraste AA sur fond blanc
+	   (une sauge plus claire comme #b1c5a4 restait à ~2.3:1)
+	   pour le texte des cases ouvertes. */
+	--saito-ce-accent-dark: #5d7256;
+	--saito-ce-bg: #cfcabe;
+	--saito-ce-text: #fff;
+	--saito-ce-radius: 6px;
+	--saito-ce-border: 1px solid #111;
+}
+
+.saito-ce-style-editorial .saito-ce-case-day,
+.saito-ce-style-editorial .saito-ce-modal-title {
+	font-family: Cardo, Georgia, "Times New Roman", serif;
+
+	/* Chiffres "old-style" (hauteurs inégales) : plus fin et éditorial que les
+	   chiffres alignés par défaut, cohérent avec une police à empattements. */
+	font-variant-numeric: oldstyle-nums;
+}
+
+/* --- Grille "bento" ---------------------------------------------------- *
+ * Des cases de tailles variées (répétées tous les 8 jours) créent une
+ * mosaïque plutôt qu'une grille uniforme ; `dense` comble les trous laissés
+ * par les cases plus grandes. Le dégradé "respire" lentement même sans
+ * interaction (vie au repos), et une lueur chaude suit le curseur au survol
+ * (`--saito-ce-mx`/`--saito-ce-my`, mis à jour par frontend.js) — sans revenir au
+ * flou/verre de la première version, juste de la lumière qui bouge. */
+.saito-ce-style-editorial .saito-ce-grid {
+	grid-template-columns: repeat(6, 1fr);
+	grid-auto-rows: 90px;
+	grid-auto-flow: dense;
+	gap: 12px;
+	padding: 20px;
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(120deg, #cfcabe, #d9c9ae, #c2a990, #cfcabe);
+	background-size: 300% 300%;
+	animation: saito-ce-grid-breathe 16s ease-in-out infinite;
+	border-radius: 8px;
+}
+
+@keyframes saito-ce-grid-breathe {
+	0%, 100% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+}
+
+.saito-ce-style-editorial .saito-ce-grid::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background: radial-gradient(280px circle at var(--saito-ce-mx, 50%) var(--saito-ce-my, 50%), rgba(255, 226, 190, 0.9), transparent 70%);
+
+	/* `soft-light` teinte chaudement ce qu'il y a en dessous (fond + cases)
+	   sans jamais le masquer, contrairement à un calque opaque classique. */
+	mix-blend-mode: soft-light;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.saito-ce-style-editorial .saito-ce-grid:hover::after {
+	opacity: 1;
+}
+
+@media (max-width: 700px) {
+	.saito-ce-style-editorial .saito-ce-grid {
+		grid-template-columns: repeat(4, 1fr);
+		grid-auto-rows: 76px;
+	}
+}
+
+@media (max-width: 420px) {
+	.saito-ce-style-editorial .saito-ce-grid {
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: 70px;
+	}
+}
+
+.saito-ce-style-editorial .saito-ce-case:nth-child(8n+1) {
+	grid-column: span 2;
+	grid-row: span 2;
+}
+
+.saito-ce-style-editorial .saito-ce-case:nth-child(8n+6) {
+	grid-row: span 2;
+}
+
+.saito-ce-style-editorial .saito-ce-case:nth-child(8n+1) .saito-ce-case-day {
+	font-size: 2.1em;
+}
+
+/* La grande case bento a droit à un vrai traitement, pas juste un chiffre
+   plus gros : une petite légende dédiée, quel que soit son état. */
+.saito-ce-style-editorial .saito-ce-case:nth-child(8n+1)::after {
+	content: "Surprise du jour";
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	opacity: 0.7;
+	white-space: nowrap;
+	pointer-events: none;
+}
+
+/* --- Cases en aplat ------------------------------------------------------ */
+.saito-ce-style-editorial .saito-ce-case {
+	aspect-ratio: auto;
+
+	/* `position` + `overflow` : nécessaires pour que le reflet de
+	   vanilla-tilt.js (effet de bascule 3D au survol, cf. frontend.js) reste
+	   cadré dans les angles arrondis de la case plutôt que de déborder en
+	   carré. `z-index` : passe au-dessus de la lueur qui suit le curseur
+	   (::after de la grille, cf. plus haut), pour ne jamais masquer les
+	   chiffres/textes. */
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+	background: #fff;
+	color: #111;
+	transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+/* Même bascule que les boutons du thème au survol : fond gris foncé, texte
+   blanc — pas d'ombre ni de "lift" (le `transform: none` neutralise le
+   translateY hérité de la règle générique .saito-ce-case:hover, cohérent avec
+   un design system sans élévation). */
+.saito-ce-style-editorial .saito-ce-case:hover {
+	background: #636363;
+	color: #fff;
+	transform: none;
+}
+
+.saito-ce-style-editorial .saito-ce-case.is-locked {
+	background: #f5f3ef;
+	color: rgba(17, 17, 17, 0.35);
+}
+
+.saito-ce-style-editorial .saito-ce-case.is-locked:hover {
+	background: #f5f3ef;
+	color: rgba(17, 17, 17, 0.35);
+	transform: none;
+}
+
+/* Case dont la date est strictement passée sans avoir été ouverte : plus
+   accessible du tout (cf. is_case_expired() côté serveur), teinte encore
+   plus éteinte que "locked" pour signaler "définitivement fermée" plutôt
+   que "pas encore". */
+.saito-ce-style-editorial .saito-ce-case.is-expired {
+	background: #ece8e1;
+	color: rgba(17, 17, 17, 0.25);
+}
+
+.saito-ce-style-editorial .saito-ce-case.is-expired:hover {
+	background: #ece8e1;
+	color: rgba(17, 17, 17, 0.25);
+	transform: none;
+}
+
+/* `animation-name` seul (plutôt que le raccourci `animation`) pour ne pas
+   écraser `animation-delay`/`fill-mode` hérités de .saito-ce-case (entrée en
+   cascade) ; mais `duration`/`iteration-count` doivent, eux, être redéfinis
+   explicitement : sans ça ils retombent aussi sur ceux de l'entrée (0.5s,
+   1 seule fois) et la case ne "respire" jamais vraiment — bug resté
+   invisible jusqu'ici, corrigé ici avec le reste des animations. */
+.saito-ce-style-editorial .saito-ce-case.is-available {
+	background: var(--saito-ce-accent);
+	border-color: var(--saito-ce-accent);
+	color: #fff;
+	animation-name: saito-ce-pulse-editorial;
+	animation-duration: 2.2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes saito-ce-pulse-editorial {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(216, 97, 60, 0.5); }
+	50% { box-shadow: 0 0 0 8px rgba(216, 97, 60, 0); }
+}
+
+/* Sans ça, une case disponible (déjà colorée + pulsation) ne changerait pas
+   du tout au survol, contrairement à toutes les autres cases : même logique
+   d'assombrissement que le bouton "Ajouter au panier". */
+.saito-ce-style-editorial .saito-ce-case.is-available:hover {
+	background: #b1492c;
+	border-color: #b1492c;
+}
+
+.saito-ce-style-editorial .saito-ce-case.is-opened {
+	background: var(--saito-ce-accent-dark);
+	border-color: var(--saito-ce-accent-dark);
+	color: #fff;
+	opacity: 1;
+}
+
+.saito-ce-style-editorial .saito-ce-case.is-opened:hover {
+	background: #46573f;
+	border-color: #46573f;
+}
+
+/* --- Modale : panneau à bord franc (bottom sheet en mobile) ------------- *
+ * `hidden` continue de piloter l'affichage (accessibilité inchangée) ; la
+ * classe `.is-open`, ajoutée par le JS une fois l'élément affiché, ne fait
+ * que déclencher la transition d'entrée/sortie. Un simple filet de 1px
+ * sépare le panneau du reste de la page, sans ombre ni flou. */
+.saito-ce-style-editorial .saito-ce-modal {
+	background: rgba(17, 17, 17, 0);
+	justify-content: flex-end;
+	align-items: stretch;
+	padding: 0;
+	transition: background 0.3s ease;
+}
+
+.saito-ce-style-editorial .saito-ce-modal.is-open {
+	background: rgba(17, 17, 17, 0.45);
+}
+
+.saito-ce-style-editorial .saito-ce-modal-content {
+	background: #fff;
+	border-left: 1px solid #111;
+	max-width: 380px;
+	width: 100%;
+	height: 100%;
+	border-radius: 0;
+	padding: 32px 28px;
+	text-align: left;
+	transform: translateX(100%);
+	transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.saito-ce-style-editorial .saito-ce-modal.is-open .saito-ce-modal-content {
+	transform: translateX(0);
+}
+
+@media (max-width: 600px) {
+	.saito-ce-style-editorial .saito-ce-modal {
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.saito-ce-style-editorial .saito-ce-modal-content {
+		max-width: none;
+		height: auto;
+		max-height: 80vh;
+		border-left: none;
+		border-top: 1px solid #111;
+		border-radius: 12px 12px 0 0;
+		transform: translateY(100%);
+		overflow-y: auto;
+	}
+
+	.saito-ce-style-editorial .saito-ce-modal.is-open .saito-ce-modal-content {
+		transform: translateY(0);
+	}
+}
+
+.saito-ce-style-editorial .saito-ce-modal-image {
+	max-height: 240px;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+.saito-ce-style-editorial .saito-ce-modal-product {
+	background: #f5f3ef;
+	border: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.saito-ce-style-editorial .saito-ce-modal-product-name {
+	font-family: Cardo, Georgia, "Times New Roman", serif;
+	text-decoration: none;
+}
+
+/* Révélation plus théâtrale du titre et du code que le simple fondu générique
+   (.saito-ce-modal-body > *) : un léger effet "ressort" (dépassement puis
+   retour) pour un vrai moment fort, sans toucher à `animation-delay` ni au
+   `fill-mode` hérités (on ne redéclare que name/duration/timing-function). */
+.saito-ce-style-editorial .saito-ce-modal-title {
+	font-size: 1.7em;
+	animation-name: saito-ce-modal-pop;
+	animation-duration: 0.5s;
+	animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes saito-ce-modal-pop {
+	0% { opacity: 0; transform: scale(0.75) translateY(8px); }
+	65% { opacity: 1; transform: scale(1.04) translateY(0); }
+	100% { transform: scale(1); }
+}
+
+.saito-ce-style-editorial .saito-ce-modal-code {
+	background: #f4ede3;
+	border-color: #c2a990;
+	color: #7a4326;
+	animation-name: saito-ce-modal-pop;
+	animation-duration: 0.45s;
+	animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.saito-ce-style-editorial .saito-ce-apply-button {
+	/* Le terracotta clair (#d8613c) tient le contraste AA pour du texte large
+	   (numéros de case) mais pas pour le libellé normal du bouton (~3.6:1,
+	   sous le seuil de 4.5:1) : on part directement de la teinte foncée. */
+	background: #b1492c;
+	border-radius: 6px;
+}
+
+.saito-ce-style-editorial .saito-ce-apply-button:hover:not(:disabled) {
+	background: #8f3a22;
+}
+
+.saito-ce-grid {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 12px;
+	padding: 16px;
+	background: var(--saito-ce-bg);
+	border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+	.saito-ce-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 8px;
+	}
+}
+
+@media (max-width: 420px) {
+	.saito-ce-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.saito-ce-case {
+	aspect-ratio: 1 / 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2px;
+	border-radius: var(--saito-ce-radius);
+	border: var(--saito-ce-border);
+	font-size: 1.4em;
+	font-weight: 700;
+	cursor: pointer;
+	background: var(--saito-ce-accent);
+	color: var(--saito-ce-text);
+	transition: transform 0.15s ease, opacity 0.15s ease;
+
+	/* Entrée en cascade à l'affichage de la grille : `backwards` maintient
+	   l'état "from" pendant le délai (sinon toutes les cases seraient
+	   visibles avant leur tour), et l'absence de `forwards` est volontaire
+	   — une fois l'animation terminée, elle ne doit plus rien imposer sur
+	   `transform`, sans quoi elle empêcherait le tilt 3D (vanilla-tilt.js,
+	   habillage "Éditorial") d'appliquer sa propre rotation au survol. */
+	animation: saito-ce-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+	animation-delay: min(calc(var(--saito-ce-i, 0) * 40ms), 500ms);
+}
+
+@keyframes saito-ce-reveal {
+	from { opacity: 0; transform: translateY(14px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.saito-ce-case-countdown {
+	font-size: 0.35em;
+	font-weight: 500;
+	letter-spacing: 0.03em;
+	opacity: 0.8;
+
+	/* Texte personnalisable par calendrier ("J-3" par défaut, mais aussi
+	   "Dernier jour !" sur la case du jour) : une case reste un petit carré,
+	   donc on tronque plutôt que de casser la mise en page sur un texte
+	   custom trop long. */
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.saito-ce-case-countdown:empty {
+	display: none;
+}
+
+/* Cadenas sur les cases fermées (pas encore ouvrables ou date passée). Masque
+   SVG coloré via currentColor : suit la couleur du texte de chaque habillage. */
+.saito-ce-case-lock {
+	display: none;
+	width: 0.6em;
+	height: 0.6em;
+	background-color: currentcolor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3' fill='none' stroke='black' stroke-width='2.2'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3' fill='none' stroke='black' stroke-width='2.2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.saito-ce-case.is-locked .saito-ce-case-lock,
+.saito-ce-case.is-expired .saito-ce-case-lock {
+	display: block;
+}
+
+/* Porte qui s'ouvre au moment où une case est révélée (cf. openDoor() dans
+   frontend.js) : un battant aux couleurs de la case fermée pivote sur son
+   bord gauche. `overflow: visible` le temps de l'animation, sinon le
+   battant serait coupé par les habillages qui cadrent la case (Éditorial). */
+.saito-ce-calendar .saito-ce-case.is-door-opening {
+	position: relative;
+	z-index: 3;
+	overflow: visible;
+	perspective: 600px;
+}
+
+.saito-ce-case-door {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: inherit;
+	border: inherit;
+	transform-origin: left center;
+	pointer-events: none;
+	box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+	animation: saito-ce-door-open 0.8s cubic-bezier(0.3, 0.7, 0.25, 1) forwards;
+}
+
+/* Ombre côté charnière : donne du relief au battant. */
+.saito-ce-case-door::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0) 35%);
+}
+
+.saito-ce-case-door-day {
+	position: relative;
+}
+
+.saito-ce-case-door-knob {
+	position: absolute;
+	top: 50%;
+	right: 10%;
+	width: 0.22em;
+	height: 0.22em;
+	border-radius: 50%;
+	background: currentcolor;
+	opacity: 0.7;
+	transform: translateY(-50%);
+}
+
+@keyframes saito-ce-door-open {
+	/* Petit à-coup de déverrouillage, puis la porte pivote et s'efface. */
+	0% { transform: rotateY(0deg); opacity: 1; }
+	12% { transform: rotateY(-8deg); opacity: 1; }
+	20% { transform: rotateY(-4deg); opacity: 1; }
+	80% { opacity: 1; }
+	100% { transform: rotateY(-115deg); opacity: 0; }
+}
+
+/* Message affiché aux visiteurs à la place du calendrier, avant ou après
+   sa période d'affichage (onglet Programmation du BO). */
+.saito-ce-schedule-message {
+	max-width: 640px;
+	margin: 1.5em auto;
+	padding: 1.5em;
+	border: 1px dashed currentcolor;
+	border-radius: 12px;
+	text-align: center;
+	font-size: 1.1em;
+}
+
+.saito-ce-schedule-message p {
+	margin: 0;
+}
+
+/* Repère visuel de la case du jour, tous habillages confondus : un simple
+   changement de couleur de fond ne suffit pas à distinguer "aujourd'hui"
+   de "disponible depuis 3 jours" quand plusieurs cases sont ouvrables. Un
+   vrai badge plutôt qu'un simple liseré doré, pour une mise en scène qui se
+   remarque au premier coup d'œil. */
+.saito-ce-case.is-today {
+	position: relative;
+	outline: 2px solid #d4af37;
+	outline-offset: 2px;
+}
+
+.saito-ce-case.is-today::before {
+	/* Texte personnalisable (onglet Textes), posé par frontend.js. */
+	content: attr(data-today-label);
+	position: absolute;
+	top: 4px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #d4af37;
+	color: #111;
+	font-size: 9px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	padding: 2px 6px;
+	border-radius: 999px;
+	white-space: nowrap;
+	pointer-events: none;
+}
+
+.saito-ce-case:hover {
+	transform: translateY(-2px);
+}
+
+.saito-ce-case.is-locked {
+	background: rgba(255, 255, 255, 0.25);
+	color: rgba(255, 255, 255, 0.6);
+	cursor: not-allowed;
+}
+
+.saito-ce-case.is-locked:hover {
+	transform: none;
+}
+
+/* Case dont la date est strictement passée sans avoir été ouverte : plus
+   accessible du tout (cf. is_case_expired() côté serveur), teinte encore
+   plus éteinte que "locked" pour signaler "définitivement fermée" plutôt
+   que "pas encore". */
+.saito-ce-case.is-expired {
+	background: rgba(0, 0, 0, 0.15);
+	color: rgba(255, 255, 255, 0.45);
+	cursor: not-allowed;
+}
+
+.saito-ce-case.is-expired:hover {
+	transform: none;
+}
+
+.saito-ce-case.is-available {
+	background: var(--saito-ce-accent);
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+	animation: saito-ce-pulse 1.8s ease-in-out infinite;
+}
+
+.saito-ce-case.is-opened {
+	background: var(--saito-ce-accent-dark);
+	opacity: 0.85;
+}
+
+@keyframes saito-ce-pulse {
+	0%, 100% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35); }
+	50% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.15); }
+}
+
+.saito-ce-progress {
+	margin-top: 14px;
+}
+
+.saito-ce-progress-track {
+	height: 6px;
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+}
+
+.saito-ce-progress-bar {
+	height: 100%;
+	width: 0;
+	border-radius: inherit;
+	background: var(--saito-ce-accent);
+	transition: width 0.4s ease;
+}
+
+.saito-ce-progress-label {
+	margin: 6px 0 0;
+	font-size: 0.85em;
+	text-align: right;
+	opacity: 0.75;
+}
+
+.saito-ce-modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100000;
+	padding: 16px;
+}
+
+/* display:flex ci-dessus a une origine "auteur" et passerait donc devant le
+   display:none par défaut du navigateur pour [hidden] : on le réaffirme
+   explicitement, sinon la modale reste visible en permanence et la croix
+   de fermeture n'a plus aucun effet visuel. */
+.saito-ce-modal[hidden] {
+	display: none;
+}
+
+.saito-ce-modal-content {
+	background: #fff;
+	border-radius: 8px;
+	max-width: 420px;
+	width: 100%;
+	padding: 24px;
+	position: relative;
+	text-align: center;
+}
+
+.saito-ce-modal-close {
+	position: absolute;
+	top: 8px;
+	right: 12px;
+	background: none;
+	border: none;
+	font-size: 1.6em;
+	cursor: pointer;
+	line-height: 1;
+}
+
+/* Révélation en cascade du contenu de la modale (image, titre, description…)
+   à chaque ouverture : `modalBody.innerHTML` étant reconstruit à chaque fois
+   (cf. frontend.js), l'animation se rejoue naturellement sans code JS dédié. */
+.saito-ce-modal-body > * {
+	animation: saito-ce-modal-fade 0.4s ease backwards;
+}
+
+.saito-ce-modal-body > *:nth-child(1) { animation-delay: 0ms; }
+.saito-ce-modal-body > *:nth-child(2) { animation-delay: 70ms; }
+.saito-ce-modal-body > *:nth-child(3) { animation-delay: 140ms; }
+.saito-ce-modal-body > *:nth-child(4) { animation-delay: 210ms; }
+.saito-ce-modal-body > *:nth-child(5) { animation-delay: 280ms; }
+.saito-ce-modal-body > *:nth-child(6) { animation-delay: 350ms; }
+
+@keyframes saito-ce-modal-fade {
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.saito-ce-modal-image {
+	max-width: 100%;
+	max-height: 220px;
+	object-fit: contain;
+	margin-bottom: 12px;
+}
+
+.saito-ce-modal-title {
+	margin: 0 0 8px;
+}
+
+.saito-ce-modal-description {
+	margin: 0 0 12px;
+	line-height: 1.5;
+}
+
+.saito-ce-modal-product {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 12px;
+	padding: 8px;
+	border-radius: 8px;
+	background: rgba(0, 0, 0, 0.04);
+	text-decoration: none;
+	color: inherit;
+}
+
+.saito-ce-modal-product img {
+	width: 48px;
+	height: 48px;
+	object-fit: cover;
+	border-radius: 6px;
+	flex-shrink: 0;
+}
+
+.saito-ce-modal-product-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.saito-ce-modal-product-name {
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.saito-ce-modal-product-price {
+	font-size: 0.9em;
+	opacity: 0.8;
+}
+
+.saito-ce-modal-code {
+	display: inline-block;
+	font-family: monospace;
+	font-size: 1.1em;
+	letter-spacing: 0.05em;
+	background: #f0f0f0;
+	border: 1px dashed #999;
+	border-radius: 4px;
+	padding: 6px 12px;
+	margin: 8px 0;
+}
+
+/* inline-flex : la rangée suit l'alignement de texte de la modale (centré
+   pour Noël/Neutre, à gauche pour Éditorial) sans règle par habillage. */
+.saito-ce-modal-code-row {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.saito-ce-copy-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	border: 1px solid currentcolor;
+	border-radius: 4px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-size: 0.9em;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.saito-ce-copy-button:hover {
+	background: rgba(0, 0, 0, 0.06);
+}
+
+.saito-ce-copy-button.is-copied {
+	border-color: #0f5132;
+	color: #0f5132;
+}
+
+.saito-ce-copy-button:focus-visible {
+	outline: 3px solid #005fcc;
+	outline-offset: 3px;
+}
+
+.saito-ce-copy-icon {
+	flex-shrink: 0;
+}
+
+.saito-ce-apply-button {
+	display: block;
+	width: 100%;
+	margin-top: 12px;
+	padding: 12px;
+	background: var(--saito-ce-accent);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.saito-ce-apply-button:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.saito-ce-modal-feedback {
+	margin-top: 10px;
+	font-size: 0.9em;
+}
+
+.saito-ce-modal-feedback.is-success {
+	color: #0f5132;
+}
+
+.saito-ce-modal-feedback.is-error {
+	color: #b3282d;
+}
+
+.saito-ce-modal-expired {
+	margin-top: 12px;
+	padding: 10px 12px;
+	font-size: 0.9em;
+	color: #646970;
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 4px;
+}
+
+/* Le fond translucide des cases/boutons rend l'anneau de focus par défaut du
+   navigateur peu visible : on le réaffirme explicitement pour la navigation
+   clavier, quel que soit l'habillage choisi. */
+.saito-ce-case:focus-visible,
+.saito-ce-modal-close:focus-visible,
+.saito-ce-modal-product:focus-visible,
+.saito-ce-apply-button:focus-visible {
+	outline: 3px solid #005fcc;
+	outline-offset: 3px;
+}
+
+/* --- Mosaïque : habillages à portes de tailles variées ------------------ *
+ * Classes posées par Saito_CE_Public::render_calendar() : forme de chaque
+ * porte (data-shape) et, pour un calendrier 1→24, place fixe sur grand
+ * écran (--saito-ce-area, cf. Saito_CE_Public::MOSAIC_LAYOUT). Sur tablette et
+ * mobile, les portes gardent leur forme et se rangent dans l'ordre visuel. */
+.saito-ce-mosaic .saito-ce-grid {
+	grid-template-columns: repeat(6, 1fr);
+	grid-auto-rows: 92px;
+	grid-auto-flow: dense;
+}
+
+.saito-ce-mosaic .saito-ce-case {
+	aspect-ratio: auto;
+}
+
+.saito-ce-mosaic .saito-ce-case[data-shape="big"] {
+	grid-column: span 2;
+	grid-row: span 2;
+}
+
+.saito-ce-mosaic .saito-ce-case[data-shape="tall"] {
+	grid-row: span 2;
+}
+
+.saito-ce-mosaic .saito-ce-case[data-shape="wide"] {
+	grid-column: span 2;
+}
+
+@media (min-width: 701px) {
+	/* Plus spécifique que les règles de forme ci-dessus : la place fixe
+	   (ligne / colonne / hauteur / largeur) l'emporte. */
+	.saito-ce-mosaic.saito-ce-mosaic-fixed .saito-ce-case[data-day] {
+		grid-area: var(--saito-ce-area, auto);
+	}
+}
+
+@media (max-width: 700px) {
+	.saito-ce-mosaic .saito-ce-grid {
+		grid-template-columns: repeat(4, 1fr);
+		grid-auto-rows: 76px;
+	}
+}
+
+@media (max-width: 420px) {
+	.saito-ce-mosaic .saito-ce-grid {
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: 70px;
+	}
+}
+
+/* En-tête de marque : stylé par les habillages qui en ont un. */
+.saito-ce-header[hidden] {
+	display: none;
+}
+
+/* Gerbe derrière la porte qui s'ouvre (cf. openDoor()) : invisible sauf
+   dans les habillages qui la stylent. */
+.saito-ce-case-burst {
+	display: none;
+}
+
+/* --- Récompense révélée dans la case ouverte (cf. showReward()) -------- *
+ * Photo de la récompense dans le cadre de la case, numéro en pastille.
+ * Sélecteurs volontairement plus spécifiques que ceux des habillages
+ * (chargés après ce fichier), qui stylent le numéro des cases ouvertes. */
+.saito-ce-case-reward {
+	position: absolute;
+	inset: var(--saito-ce-reward-inset, 7px);
+	border-radius: inherit;
+	background: center / cover no-repeat;
+	pointer-events: none;
+	animation: saito-ce-reward-in 0.6s ease 0.25s backwards;
+}
+
+@keyframes saito-ce-reward-in {
+	from { opacity: 0; transform: scale(0.92); }
+	to { opacity: 1; transform: scale(1); }
+}
+
+.saito-ce-calendar .saito-ce-grid .saito-ce-case.has-reward {
+	position: relative;
+}
+
+.saito-ce-calendar .saito-ce-grid .saito-ce-case.has-reward .saito-ce-case-day {
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	z-index: 1;
+	padding: 0.3em 0.6em;
+	border-radius: 999px;
+	font-size: 0.55em;
+	font-weight: 600;
+	line-height: 1;
+	color: #1d1d1b;
+	background: rgba(255, 255, 255, 0.92);
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+	filter: none;
+	text-shadow: none;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.saito-ce-calendar .saito-ce-grid .saito-ce-case.has-reward::after,
+.saito-ce-calendar .saito-ce-grid .saito-ce-case.has-reward .saito-ce-case-countdown,
+.saito-ce-calendar .saito-ce-grid .saito-ce-case.has-reward .saito-ce-case-lock {
+	display: none;
+}
+
+/* Le badge "Aujourd'hui" reste au-dessus de la photo. */
+.saito-ce-calendar .saito-ce-grid .saito-ce-case.has-reward::before {
+	z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.saito-ce-calendar *,
+	.saito-ce-calendar *::before,
+	.saito-ce-calendar *::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+}

@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+
+jobs:
+  php:
+    name: "PHP ${{ matrix.php-version }} (syntaxe + WordPress Coding Standards + tests)"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['7.4', '8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer
+          coverage: none
+
+      - name: Vérification de la syntaxe PHP
+        run: find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -0 -n1 -I{} php -l {}
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ matrix.php-version }}-${{ hashFiles('composer.json') }}
+
+      - name: Installer les dépendances Composer
+        run: composer install --no-progress --prefer-dist
+
+      - name: WordPress Coding Standards (PHPCS)
+        run: vendor/bin/phpcs
+
+      - name: Tests (sans WordPress, une fonction stub par test)
+        run: for t in tests/test-*.php; do echo "== $t"; php "$t"; done
+
+  js-css:
+    name: JS & CSS Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer les dépendances npm
+        run: npm install
+
+      - name: ESLint
+        run: npm run lint:js
+
+      - name: Stylelint
+        run: npm run lint:css
+
+  build:
+    name: Build du plugin (zip)
+    needs: [php, js-css]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assembler et vérifier le zip WordPress.org
+        run: ./scripts/build-wporg-release.sh --skip-plugin-check
+
+      - name: Uploader l'artefact de build
+        uses: actions/upload-artifact@v4
+        with:
+          name: saito-calendar-event
+          path: build/saito-calendar-event-*.zip
+
+      - name: Attacher le zip à la Release GitHub
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/saito-calendar-event-*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
