@@ -65,6 +65,9 @@ jobs:
     name: Build du plugin (zip)
     needs: [php, js-css]
     runs-on: ubuntu-latest
+    # Nécessaire pour joindre le zip à la Release (jeton en lecture seule par défaut).
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
