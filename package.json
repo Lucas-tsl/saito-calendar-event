@@ -1,6 +1,6 @@
 {
   "name": "saito-calendar-event",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Calendriers à cases déblocables par date (calendrier de l'Avent, compte à rebours d'un événement), avec codes promo WooCommerce optionnels.",
   "scripts": {

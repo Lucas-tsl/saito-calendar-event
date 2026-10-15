@@ -613,11 +613,25 @@ class Saito_CE_Public {
 	}
 
 	private static function enqueue_frontend_assets( $style = '' ) {
+		self::enqueue_base_assets();
 		$sheet = self::style_sheet( $style );
 		if ( $sheet ) {
 			wp_enqueue_style( 'saito-ce-style-' . $sheet, SAITO_CE_URL . 'assets/css/styles/' . $sheet . '.css', array( 'saito-ce-frontend' ), SAITO_CE_VERSION );
 		}
-		if ( wp_style_is( 'saito-ce-frontend', 'enqueued' ) ) {
+	}
+
+	/**
+	 * Feuille de base, scripts et données du calendrier (une seule fois).
+	 *
+	 * Test sur "registered" et non "enqueued" : wp_style_is( 'enqueued' )
+	 * répond vrai dès qu'un style en file DÉPEND de cette poignée, même si
+	 * elle n'a jamais été enregistrée. Avec un thème à blocs, le shortcode
+	 * est rendu avant wp_enqueue_scripts : la feuille d'habillage (qui
+	 * dépend de saito-ce-frontend) passait en premier, et le CSS de base et
+	 * le JS n'étaient alors jamais chargés.
+	 */
+	private static function enqueue_base_assets() {
+		if ( wp_style_is( 'saito-ce-frontend', 'registered' ) ) {
 			return;
 		}
 		wp_enqueue_style( 'saito-ce-frontend', SAITO_CE_URL . 'assets/css/frontend.css', array(), SAITO_CE_VERSION );

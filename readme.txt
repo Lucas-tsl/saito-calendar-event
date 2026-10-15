@@ -4,7 +4,7 @@ Tags: advent calendar, calendar, countdown, woocommerce, coupon
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,10 +82,16 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 
 == Changelog ==
 
+= 1.0.1 =
+* Fix: with a block theme, a calendar inserted with the shortcode was displayed without its styles and scripts (plain grey doors).
+
 = 1.0.0 =
 * First public release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Fixes calendars displayed without styles on block themes.
 
 = 1.0.0 =
 First public release.
