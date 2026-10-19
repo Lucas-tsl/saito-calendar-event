@@ -4,7 +4,7 @@ Tags: advent calendar, calendar, countdown, woocommerce, coupon
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,9 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 
 == Changelog ==
 
+= 1.0.2 =
+* Update SortableJS to 1.15.7.
+
 = 1.0.1 =
 * Fix: with a block theme, a calendar inserted with the shortcode was displayed without its styles and scripts (plain grey doors).
 
@@ -89,6 +92,9 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 * First public release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Updates the bundled SortableJS library to 1.15.7.
 
 = 1.0.1 =
 Fixes calendars displayed without styles on block themes.
@@ -102,7 +108,7 @@ This plugin bundles the following open-source software, unmodified:
 
 * canvas-confetti 1.9.4 (MIT License) — https://github.com/catdad/canvas-confetti
 * vanilla-tilt.js 1.8.1 (MIT License) — https://github.com/micku7zu/vanilla-tilt.js
-* SortableJS 1.15.6 (MIT License) — https://github.com/SortableJS/Sortable
+* SortableJS 1.15.7 (MIT License) — https://github.com/SortableJS/Sortable
 * Bodoni Moda (SIL Open Font License 1.1) — https://github.com/indestructible-type/Bodoni
 * Great Vibes (SIL Open Font License 1.1) — https://github.com/googlefonts/great-vibes
 

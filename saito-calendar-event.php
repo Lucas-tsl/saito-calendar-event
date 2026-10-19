@@ -3,7 +3,7 @@
  * Plugin Name: Saito Calendar Event
  * Plugin URI: https://github.com/Lucas-tsl/saito-calendar-event
  * Description: Calendriers à cases déblocables par date (calendrier de l'Avent, compte à rebours d'un événement…) : chaque case révèle un texte, une image, un produit et, avec WooCommerce, un code promo ajoutable au panier.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Troteseil Lucas
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SAITO_CE_VERSION', '1.0.1' );
+define( 'SAITO_CE_VERSION', '1.0.2' );
 define( 'SAITO_CE_FILE', __FILE__ );
 define( 'SAITO_CE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SAITO_CE_URL', plugin_dir_url( __FILE__ ) );

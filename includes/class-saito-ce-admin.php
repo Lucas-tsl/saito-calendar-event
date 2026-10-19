@@ -83,7 +83,7 @@ class Saito_CE_Admin {
 		wp_enqueue_style( 'saito-ce-admin', SAITO_CE_URL . 'assets/css/admin.css', array( 'saito-ce-frontend' ), SAITO_CE_VERSION );
 		// SortableJS (MIT, embarqué dans assets/js/vendor) : glisser-déposer des
 		// cases de la grille, souris comme tactile (cf. admin.js).
-		wp_register_script( 'saito-ce-sortablejs', SAITO_CE_URL . 'assets/js/vendor/Sortable.min.js', array(), '1.15.6', true );
+		wp_register_script( 'saito-ce-sortablejs', SAITO_CE_URL . 'assets/js/vendor/Sortable.min.js', array(), '1.15.7', true );
 		$deps = array( 'jquery', 'wp-color-picker', 'saito-ce-sortablejs' );
 		if ( self::use_product_search() ) {
 			// Recherche de produit par nom : selectWoo (le select2 embarqué par
