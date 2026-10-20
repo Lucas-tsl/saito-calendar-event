@@ -1,0 +1,79 @@
+/* Saito Hub — pages Saito > Tableau de bord, Outils, Documentation. */
+.saito-hub-header {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	margin: 18px 0 8px;
+}
+
+.saito-hub-header img {
+	border-radius: 8px;
+}
+
+.saito-hub-header h1 {
+	padding: 0;
+	margin: 0;
+}
+
+.saito-hub-intro {
+	max-width: 760px;
+	font-size: 14px;
+}
+
+.saito-hub-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 16px;
+	margin-top: 16px;
+}
+
+.saito-hub-card {
+	display: flex;
+	flex-direction: column;
+	padding: 16px 18px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+}
+
+.saito-hub-card h2 {
+	margin: 0 0 4px;
+}
+
+.saito-hub-card.is-active {
+	border-color: #4555e0;
+	box-shadow: inset 4px 0 0 #4555e0;
+}
+
+.saito-hub-status {
+	margin: 0;
+	color: #646970;
+}
+
+.saito-hub-card.is-active .saito-hub-status {
+	color: #4555e0;
+	font-weight: 600;
+}
+
+.saito-hub-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+	margin-top: auto;
+	padding-top: 8px;
+}
+
+.saito-hub-docs td,
+.saito-hub-docs th {
+	vertical-align: middle;
+}
+
+.saito-hub-muted {
+	color: #8c8f94;
+}
+
+.saito-hub .CodeMirror {
+	height: 320px;
+	border: 1px solid #dcdcde;
+}

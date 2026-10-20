@@ -4,7 +4,7 @@ Tags: advent calendar, calendar, countdown, woocommerce, coupon
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,7 +49,7 @@ The admin interface and default visitor texts are in French.
 
 1. Upload the `saito-calendar-event` folder to `/wp-content/plugins/`, or install the plugin from the **Plugins → Add New** screen.
 2. Activate the plugin.
-3. Go to **Calendriers → Ajouter un calendrier**, set up the doors (date, reward, optional coupon), choose a design and publish.
+3. Go to **Saito → Calendriers → Ajouter**, set up the doors (date, reward, optional coupon), choose a design and publish.
 4. Insert the calendar in a page with the "Calendrier à cases" block, or with the shortcode shown in the "Utilisation" tab: `[saito_calendar_event id="123"]`.
 
 == Frequently Asked Questions ==
@@ -82,6 +82,12 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 
 == Changelog ==
 
+= 1.1.0 =
+* New shared "Saito" admin menu, common to all Saito plugins: "Calendriers" now
+  lives under Saito, next to a dashboard of the Saito plugins, a Tools
+  page (additional CSS and JavaScript for the whole site) and a
+  Documentation page (source code, documentation, WordPress.org pages).
+
 = 1.0.3 =
 * Fix: the linked product picked for a door was shown as "[object Object]" in the admin once selected (WooCommerce's selectWoo only accepts plain text there).
 * Fix: the product price in the reveal modal showed HTML entities ("20,00&nbsp;&euro;") instead of "20,00 €".
@@ -96,6 +102,9 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 * First public release.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+The "Calendriers" menu moves under the new shared "Saito" menu (Saito > Calendriers). Calendars are unchanged.
 
 = 1.0.3 =
 Fixes the linked product display in the admin and the product price in the reveal modal.

@@ -3,7 +3,7 @@
  * Plugin Name: Saito Calendar Event
  * Plugin URI: https://github.com/Lucas-tsl/saito-calendar-event
  * Description: Calendriers à cases déblocables par date (calendrier de l'Avent, compte à rebours d'un événement…) : chaque case révèle un texte, une image, un produit et, avec WooCommerce, un code promo ajoutable au panier.
- * Version: 1.0.3
+ * Version: 1.1.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Troteseil Lucas
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SAITO_CE_VERSION', '1.0.3' );
+define( 'SAITO_CE_VERSION', '1.1.0' );
 define( 'SAITO_CE_FILE', __FILE__ );
 define( 'SAITO_CE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SAITO_CE_URL', plugin_dir_url( __FILE__ ) );
@@ -53,7 +53,7 @@ function saito_ce_register_post_type() {
 			'public'               => false,
 			'publicly_queryable'   => false,
 			'show_ui'              => true,
-			'show_in_menu'         => true,
+			'show_in_menu'         => saito_hub_menu_slug(),
 			'show_in_admin_bar'    => false,
 			'show_in_rest'         => false,
 			'exclude_from_search'  => true,
@@ -90,6 +90,19 @@ function saito_ce_admin_notice_missing_woocommerce() {
 		'</p></div>';
 }
 add_action( 'admin_notices', 'saito_ce_admin_notice_missing_woocommerce' );
+
+// Menu « Saito » commun aux plugins Saito (voir includes/saito-hub/hub.php) :
+// les calendriers y apparaissent en sous-menu.
+require_once SAITO_CE_PATH . 'includes/saito-hub/load.php';
+add_filter( 'saito_hub_plugins', 'saito_ce_register_in_saito_hub' );
+function saito_ce_register_in_saito_hub( $plugins ) {
+	$plugins['calendar-event'] = array(
+		'version'      => SAITO_CE_VERSION,
+		'settings_url' => admin_url( 'edit.php?post_type=' . SAITO_CE_POST_TYPE ),
+		'menu_slugs'   => array( 'edit.php?post_type=' . SAITO_CE_POST_TYPE ),
+	);
+	return $plugins;
+}
 
 require_once SAITO_CE_PATH . 'includes/class-saito-ce-admin.php';
 require_once SAITO_CE_PATH . 'includes/class-saito-ce-public.php';
