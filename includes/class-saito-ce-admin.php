@@ -53,7 +53,7 @@ class Saito_CE_Admin {
 				'id'      => $product->get_id(),
 				'text'    => wp_strip_all_tags( $product->get_name() ),
 				'sku'     => (string) $product->get_sku(),
-				'price'   => '' !== $product->get_price() ? wp_strip_all_tags( wc_price( $product->get_price() ) ) : '',
+				'price'   => '' !== $product->get_price() ? html_entity_decode( wp_strip_all_tags( wc_price( $product->get_price() ) ), ENT_QUOTES, 'UTF-8' ) : '',
 				'inStock' => $product->is_in_stock(),
 				'image'   => $image_id ? wp_get_attachment_image_url( $image_id, 'thumbnail' ) : wc_placeholder_img_src( 'thumbnail' ),
 			);

@@ -88,6 +88,10 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
   page (additional CSS and JavaScript for the whole site) and a
   Documentation page (source code, documentation, WordPress.org pages).
 
+= 1.0.3 =
+* Fix: the linked product picked for a door was shown as "[object Object]" in the admin once selected (WooCommerce's selectWoo only accepts plain text there).
+* Fix: the product price in the reveal modal showed HTML entities ("20,00&nbsp;&euro;") instead of "20,00 €".
+
 = 1.0.2 =
 * Update SortableJS to 1.15.7.
 
@@ -101,6 +105,9 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 
 = 1.1.0 =
 The "Calendriers" menu moves under the new shared "Saito" menu (Saito > Calendriers). Calendars are unchanged.
+
+= 1.0.3 =
+Fixes the linked product display in the admin and the product price in the reveal modal.
 
 = 1.0.2 =
 Updates the bundled SortableJS library to 1.15.7.

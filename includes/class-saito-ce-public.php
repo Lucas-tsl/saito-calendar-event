@@ -897,7 +897,7 @@ class Saito_CE_Public {
 			'name'  => $product->get_name(),
 			'url'   => get_permalink( $product->get_id() ),
 			'image' => $image_id ? wp_get_attachment_image_url( $image_id, 'thumbnail' ) : '',
-			'price' => wp_strip_all_tags( wc_price( $product->get_price() ) ),
+			'price' => html_entity_decode( wp_strip_all_tags( wc_price( $product->get_price() ) ), ENT_QUOTES, 'UTF-8' ),
 		);
 	}
 

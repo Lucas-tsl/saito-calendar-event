@@ -445,11 +445,6 @@ body.saito-ce-admin-modal-open .select2-container--open .select2-dropdown {
 	background: #f0f0f1;
 }
 
-.saito-ce-product-option.is-selection .saito-ce-product-option-thumb {
-	width: 22px;
-	height: 22px;
-}
-
 .saito-ce-product-option-text {
 	display: flex;
 	flex-direction: column;
