@@ -955,7 +955,10 @@ class Saito_CE_Public {
 		if ( ! $applied ) {
 			$messages = array();
 			foreach ( wc_get_notices( 'error' ) as $notice ) {
-				$messages[] = wp_strip_all_tags( $notice['notice'] );
+				// Les messages de WooCommerce contiennent du HTML (wc_price() pour un
+				// minimum de dépense, &nbsp;, &euro;…) : la modale les affiche en
+				// texte brut (textContent), d'où le décodage des entités.
+				$messages[] = html_entity_decode( wp_strip_all_tags( $notice['notice'] ), ENT_QUOTES, 'UTF-8' );
 			}
 			wc_clear_notices();
 			wp_send_json_error(
