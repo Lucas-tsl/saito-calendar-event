@@ -201,36 +201,34 @@
 	 * Produits
 	 * ------------------------------------------------------------------ */
 
-	function productTemplate( item, isSelection ) {
+	function productTemplate( item ) {
 		if ( ! item.id ) {
 			return item.text;
 		}
 		var image = item.image || $( item.element ).data( 'image' ) || '';
-		var $row = $( '<span class="saito-ce-product-option"></span>' ).toggleClass( 'is-selection', !! isSelection );
+		var $row = $( '<span class="saito-ce-product-option"></span>' );
 		if ( image ) {
 			$row.append( $( '<img class="saito-ce-product-option-thumb" alt="">' ).attr( 'src', image ) );
 		}
 		var $text = $( '<span class="saito-ce-product-option-text"></span>' );
 		$text.append( $( '<span class="saito-ce-product-option-name"></span>' ).text( item.text ) );
 
-		if ( ! isSelection ) {
-			var meta = [];
-			if ( item.sku ) {
-				meta.push( item.sku );
-			}
-			if ( item.price ) {
-				meta.push( item.price );
-			}
-			var $meta = $( '<span class="saito-ce-product-option-meta"></span>' ).text( meta.join( ' · ' ) );
-			if ( 'inStock' in item ) {
-				$meta.append(
-					$( '<span class="saito-ce-pill"></span>' )
-						.addClass( item.inStock ? 'is-valid' : 'is-expired' )
-						.text( item.inStock ? i18n.productInStock : i18n.productOutOfStock )
-				);
-			}
-			$text.append( $meta );
+		var meta = [];
+		if ( item.sku ) {
+			meta.push( item.sku );
 		}
+		if ( item.price ) {
+			meta.push( item.price );
+		}
+		var $meta = $( '<span class="saito-ce-product-option-meta"></span>' ).text( meta.join( ' · ' ) );
+		if ( 'inStock' in item ) {
+			$meta.append(
+				$( '<span class="saito-ce-pill"></span>' )
+					.addClass( item.inStock ? 'is-valid' : 'is-expired' )
+					.text( item.inStock ? i18n.productInStock : i18n.productOutOfStock )
+			);
+		}
+		$text.append( $meta );
 		$row.append( $text );
 		return $row;
 	}
@@ -265,10 +263,13 @@
 					},
 				},
 				templateResult: function ( item ) {
-					return productTemplate( item, false );
+					return productTemplate( item );
 				},
+				// Texte seul : selectWoo (livré avec WooCommerce) affiche la
+				// sélection avec .text(), un élément HTML y deviendrait
+				// « [object Object] ».
 				templateSelection: function ( item ) {
-					return productTemplate( item, true );
+					return $.trim( item.text || '' );
 				},
 				language: {
 					inputTooShort: function () {

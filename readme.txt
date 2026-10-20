@@ -4,7 +4,7 @@ Tags: advent calendar, calendar, countdown, woocommerce, coupon
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,10 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 
 == Changelog ==
 
+= 1.0.3 =
+* Fix: the linked product picked for a door was shown as "[object Object]" in the admin once selected (WooCommerce's selectWoo only accepts plain text there).
+* Fix: the product price in the reveal modal showed HTML entities ("20,00&nbsp;&euro;") instead of "20,00 €".
+
 = 1.0.2 =
 * Update SortableJS to 1.15.7.
 
@@ -92,6 +96,9 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 * First public release.
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Fixes the linked product display in the admin and the product price in the reveal modal.
 
 = 1.0.2 =
 Updates the bundled SortableJS library to 1.15.7.
