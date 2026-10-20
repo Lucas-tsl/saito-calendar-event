@@ -87,6 +87,10 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
   lives under Saito, next to a dashboard of the Saito plugins, a Tools
   page (additional CSS and JavaScript for the whole site) and a
   Documentation page (source code, documentation, WordPress.org pages).
+* Fix: coupon error messages from WooCommerce (e.g. minimum spend) showed
+  HTML entities such as "60,00&nbsp;&euro;" in the case modal.
+* The linked product's price is now left-aligned under its name in the
+  case modal.
 
 = 1.0.3 =
 * Fix: the linked product picked for a door was shown as "[object Object]" in the admin once selected (WooCommerce's selectWoo only accepts plain text there).
