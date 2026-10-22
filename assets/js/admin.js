@@ -15,7 +15,7 @@
 		var style = $( '#saito_ce_style' ).val() || 'noel';
 		// Préserve les classes de disposition posées par rebuildPreviewCases().
 		var keep = ( $preview.attr( 'class' ) || '' ).split( /\s+/ ).filter( function ( cls ) {
-			return /^(saito-ce-mosaic|saito-ce-mosaic-fixed|has-header)$/.test( cls );
+			return /^(saito-ce-mosaic|saito-ce-mosaic-fixed|saito-ce-mosaic-cols-4|has-header)$/.test( cls );
 		} );
 		$preview.attr( 'class', [ 'saito-ce-calendar', 'saito-ce-style-' + style ].concat( keep ).join( ' ' ) );
 
@@ -56,14 +56,17 @@
 	 * et place de chaque jour, dans l'ordre d'affichage.
 	 */
 	function mosaicArrangement( days ) {
-		var layout = ( ( window.saitoCeAdmin || {} ).mosaic || {} ).layout || {};
+		var layouts = ( ( window.saitoCeAdmin || {} ).mosaic || {} ).layouts || {};
 		days = days.filter( function ( day, index ) {
 			return day > 0 && days.indexOf( day ) === index;
 		} ).sort( function ( a, b ) {
 			return a - b;
 		} );
 
-		var isFull = 24 === days.length && days.every( function ( day, index ) {
+		// Disposition fixe pour un calendrier 1→N quand elle existe (24 cases,
+		// semaine de 8), cf. Saito_CE_Public::mosaic_layouts().
+		var layout = layouts[ days.length ] || {};
+		var isFull = days.length > 0 && !! layouts[ days.length ] && days.every( function ( day, index ) {
 			return day === index + 1;
 		} );
 
@@ -167,9 +170,17 @@
 				return order[ a.day ] - order[ b.day ];
 			} );
 		}
+		var columns = 0;
+		if ( isMosaic && isFixed ) {
+			Object.keys( cells ).forEach( function ( day ) {
+				var parts = cells[ day ].area.split( ' / ' );
+				columns = Math.max( columns, parseInt( parts[ 1 ], 10 ) + parseInt( parts[ 3 ].replace( 'span ', '' ), 10 ) - 1 );
+			} );
+		}
 		$( '#saito-ce-preview' )
 			.toggleClass( 'saito-ce-mosaic', isMosaic )
-			.toggleClass( 'saito-ce-mosaic-fixed', isMosaic && isFixed );
+			.toggleClass( 'saito-ce-mosaic-fixed', isMosaic && isFixed )
+			.toggleClass( 'saito-ce-mosaic-cols-4', isMosaic && isFixed && 4 === columns );
 
 		var html = '';
 		cases.forEach( function ( item ) {
@@ -771,6 +782,22 @@
 			revealingInvalid = false;
 		}, 0 );
 	}, true );
+
+	// « Appliquer le modèle » (cf. Saito_CE_Templates::render_picker()) :
+	// lien d'application complété avec le modèle et l'année choisis.
+	$( document ).on( 'click', '#saito-ce-apply-template', function () {
+		var $picker = $( this ).closest( '.saito-ce-template-picker' );
+		var i18n = ( window.saitoCeAdmin || {} ).i18n || {};
+		if ( '1' === String( $picker.data( 'has-cases' ) ) && ! window.confirm( i18n.templateConfirm || 'Remplacer les cases de ce calendrier ?' ) ) {
+			return;
+		}
+		var url = $picker.data( 'apply-url' ) +
+			'&template=' + encodeURIComponent( $( '#saito-ce-template' ).val() || '' ) +
+			'&year=' + encodeURIComponent( $( '#saito-ce-template-year' ).val() || '' );
+		// Pas d'avertissement « modifications non enregistrées » : voulu ici.
+		$( window ).off( 'beforeunload' );
+		window.location.href = url;
+	} );
 
 	$( document ).on( 'submit', '#post', function ( event ) {
 		var incomplete = findIncompleteModals();
