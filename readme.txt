@@ -4,7 +4,7 @@ Tags: advent calendar, calendar, countdown, woocommerce, coupon
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,10 @@ The admin interface and default visitor texts are in French.
 
 == Frequently Asked Questions ==
 
+= Is there a ready-made Black Friday or advent calendar? =
+
+Yes. In the "Cases" tab, "Partir d'un modèle" fills a calendar in one click for the year you choose: "Black Week" (8 days, from the Monday before Black Friday to Cyber Monday, Black Friday and Cyber Monday highlighted, "Black Week" style) or "Advent calendar" (24 days, December 1 to 24). Dates, titles, descriptions, style and display period are filled in; you only add your coupon codes and products. Developers can add templates with the `saito_ce_templates` filter.
+
 = Can a visitor open a door before its date? =
 
 No. The date is checked on the server, in the site's timezone. The content of a door (texts, image, coupon) is only sent once the door is opened on its day.
@@ -82,6 +86,17 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 
 == Changelog ==
 
+= 1.2.0 =
+* New calendar templates, in the "Cases" tab: "Black Week" (8 days, from
+  the Monday before Black Friday to Cyber Monday) and "Advent calendar"
+  (24 days). Dates are computed for the chosen year; titles, descriptions,
+  style and display period are filled in. Extensible with the
+  `saito_ce_templates` filter.
+* New "Black Week" style: black, white and gold doors; Black Friday and
+  Cyber Monday are the two big doors.
+* Mosaic styles: a calendar with exactly 8 days (1 to 8) now gets its own
+  fixed 4-column layout.
+
 = 1.1.0 =
 * New shared "Saito" admin menu, common to all Saito plugins: "Calendriers" now
   lives under Saito, next to a dashboard of the Saito plugins, a Tools
@@ -106,6 +121,9 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 * First public release.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+New "Black Week" and "Advent calendar" templates, and a new "Black Week" style. Existing calendars are unchanged.
 
 = 1.1.0 =
 The "Calendriers" menu moves under the new shared "Saito" menu (Saito > Calendriers). Calendars are unchanged.

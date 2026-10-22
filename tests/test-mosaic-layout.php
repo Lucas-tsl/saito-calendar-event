@@ -80,6 +80,35 @@ saito_ce_assert( 'repli 5 cases : grande, normale, normale, haute, grande (la de
 saito_ce_assert( 'repli : pas de place fixe', '', $five[1]['area'] );
 saito_ce_assert( 'jours vides ou en double ignorés', array( 1, 2 ), array_keys( Saito_CE_Public::mosaic_arrangement( array( 2, 0, 1, 2 ) ) ) );
 
+// Semaine de 8 cases (WEEK_LAYOUT) : grille 4×4 couverte sans chevauchement.
+$grid    = array();
+$overlap = false;
+foreach ( Saito_CE_Public::WEEK_LAYOUT as $day => $cell ) {
+	list( $row, $col, $rows, $cols ) = $cell;
+	for ( $r = $row; $r < $row + $rows; $r++ ) {
+		for ( $c = $col; $c < $col + $cols; $c++ ) {
+			if ( $r > 4 || $c > 4 || isset( $grid[ $r ][ $c ] ) ) {
+				$overlap = true;
+			}
+			$grid[ $r ][ $c ] = $day;
+		}
+	}
+}
+$cells = 0;
+foreach ( $grid as $row_cells ) {
+	$cells += count( $row_cells );
+}
+saito_ce_assert( 'semaine : aucun chevauchement ni débordement de la grille 4×4', false, $overlap );
+saito_ce_assert( 'semaine : les 16 cellules sont couvertes', 16, $cells );
+saito_ce_assert( 'semaine : 4 colonnes', 4, Saito_CE_Public::layout_columns( Saito_CE_Public::WEEK_LAYOUT ) );
+saito_ce_assert( '24 cases : 6 colonnes', 6, Saito_CE_Public::layout_columns( Saito_CE_Public::MOSAIC_LAYOUT ) );
+
+$week = Saito_CE_Public::mosaic_arrangement( range( 8, 1 ) );
+saito_ce_assert( 'semaine : le 5 (Black Friday) est une grande porte', 'big', $week[5]['shape'] );
+saito_ce_assert( 'semaine : le 8 (Cyber Monday) est une grande porte', 'big', $week[8]['shape'] );
+saito_ce_assert( 'semaine : place fixe du 5', '2 / 1 / span 2 / span 2', $week[5]['area'] );
+saito_ce_assert( 'semaine : ordre visuel', array( 1, 2, 3, 4, 5, 8, 6, 7 ), array_keys( $week ) );
+
 if ( $failures > 0 ) {
 	fwrite( STDERR, "\n{$failures} échec(s).\n" );
 	exit( 1 );
