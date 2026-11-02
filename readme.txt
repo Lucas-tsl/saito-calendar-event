@@ -87,6 +87,7 @@ Deleting the plugin from the Plugins screen removes the calendars it created and
 == Changelog ==
 
 = 1.2.0 =
+* The shared "Saito" menu no longer has a Tools page (custom CSS and JavaScript): WordPress.org no longer allows plugins to store arbitrary code. Custom CSS saved there is moved to the WordPress Additional CSS; saved JavaScript is shown once in an admin notice so it can be copied elsewhere.
 * New calendar templates, in the "Cases" tab: "Black Week" (8 days, from
   the Monday before Black Friday to Cyber Monday) and "Advent calendar"
   (24 days). Dates are computed for the chosen year; titles, descriptions,
