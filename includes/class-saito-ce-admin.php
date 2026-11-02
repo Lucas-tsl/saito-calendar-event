@@ -18,6 +18,7 @@ class Saito_CE_Admin {
 		// Priorité 20 : après WooCommerce (10), qui enregistre les scripts de
 		// recherche de produit (wc-enhanced-select) que l'on réutilise.
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ), 20 );
+		add_action( 'admin_notices', array( __CLASS__, 'template_applied_notice' ) );
 		add_action( 'admin_post_saito_ce_export_cases', array( __CLASS__, 'handle_export' ) );
 		add_action( 'admin_post_saito_ce_duplicate_calendar', array( __CLASS__, 'handle_duplicate' ) );
 		add_action( 'wp_ajax_saito_ce_search_products', array( __CLASS__, 'ajax_search_products' ) );
@@ -80,6 +81,7 @@ class Saito_CE_Admin {
 		// choisit un autre (sur le site, seul celui du calendrier est chargé).
 		wp_enqueue_style( 'saito-ce-style-sparkle', SAITO_CE_URL . 'assets/css/styles/sparkle.css', array( 'saito-ce-frontend' ), SAITO_CE_VERSION );
 		wp_enqueue_style( 'saito-ce-style-floral', SAITO_CE_URL . 'assets/css/styles/floral.css', array( 'saito-ce-frontend' ), SAITO_CE_VERSION );
+		wp_enqueue_style( 'saito-ce-style-black-week', SAITO_CE_URL . 'assets/css/styles/black-week.css', array( 'saito-ce-frontend' ), SAITO_CE_VERSION );
 		wp_enqueue_style( 'saito-ce-admin', SAITO_CE_URL . 'assets/css/admin.css', array( 'saito-ce-frontend' ), SAITO_CE_VERSION );
 		// SortableJS (MIT, embarqué dans assets/js/vendor) : glisser-déposer des
 		// cases de la grille, souris comme tactile (cf. admin.js).
@@ -101,13 +103,14 @@ class Saito_CE_Admin {
 				'coupons'     => self::get_wc_coupons(),
 				// Même disposition que sur le site, pour l'aperçu.
 				'mosaic'      => array(
-					'styles'  => array_values( array_filter( array( 'sparkle', 'floral-blue', 'floral-gold', 'floral-duo' ), array( 'Saito_CE_Public', 'is_mosaic_style' ) ) ),
-					'layout'  => Saito_CE_Public::MOSAIC_LAYOUT,
+					'styles'  => array_values( array_filter( array( 'sparkle', 'floral-blue', 'floral-gold', 'floral-duo', 'black-week' ), array( 'Saito_CE_Public', 'is_mosaic_style' ) ) ),
+					'layouts' => Saito_CE_Public::mosaic_layouts(),
 					'today'   => __( 'Aujourd’hui', 'saito-calendar-event' ),
 				),
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'searchNonce' => wp_create_nonce( 'saito_ce_search_products' ),
 				'i18n'        => array(
+					'templateConfirm'    => __( 'Appliquer ce modèle remplace toutes les cases, l’habillage et la programmation de ce calendrier (les modifications non enregistrées sont perdues). Continuer ?', 'saito-calendar-event' ),
 					'couponValid'        => __( 'Valide', 'saito-calendar-event' ),
 					'couponStatusExpired' => __( 'Expiré', 'saito-calendar-event' ),
 					'couponStatusUsedUp' => __( 'Épuisé', 'saito-calendar-event' ),
@@ -204,6 +207,19 @@ class Saito_CE_Admin {
 	 */
 	private static function use_product_search() {
 		return saito_ce_is_woocommerce_active() && wp_script_is( 'selectWoo', 'registered' );
+	}
+
+	/**
+	 * Confirmation après « Appliquer le modèle » (cf. Saito_CE_Templates::handle_apply()).
+	 */
+	public static function template_applied_notice() {
+		if ( empty( $_GET['saito_ce_template_applied'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- simple affichage d'un message.
+			return;
+		}
+		printf(
+			'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+			esc_html__( 'Modèle appliqué : renseignez maintenant les codes promo et produits de chaque case, puis publiez le calendrier.', 'saito-calendar-event' )
+		);
 	}
 
 	public static function add_meta_boxes() {
@@ -351,6 +367,7 @@ class Saito_CE_Admin {
 				<option value="floral-blue" <?php selected( $style, 'floral-blue' ); ?>><?php esc_html_e( 'Floral bleu et argent (portes en mosaïque)', 'saito-calendar-event' ); ?></option>
 				<option value="floral-gold" <?php selected( $style, 'floral-gold' ); ?>><?php esc_html_e( 'Floral blanc et or (portes en mosaïque)', 'saito-calendar-event' ); ?></option>
 				<option value="floral-duo" <?php selected( $style, 'floral-duo' ); ?>><?php esc_html_e( 'Floral duo : portes bleu et argent, blanc et or (mosaïque)', 'saito-calendar-event' ); ?></option>
+				<option value="black-week" <?php selected( $style, 'black-week' ); ?>><?php esc_html_e( 'Black Week (noir, blanc et or, portes en mosaïque)', 'saito-calendar-event' ); ?></option>
 			</select>
 		</p>
 		<p>
@@ -709,10 +726,12 @@ class Saito_CE_Admin {
 	 * fermée/masquée).
 	 */
 	private static function render_cases_tab( $post ) {
-		$cases = get_post_meta( $post->ID, SAITO_CE_CASES_META, true );
-		if ( ! is_array( $cases ) || empty( $cases ) ) {
+		$cases     = get_post_meta( $post->ID, SAITO_CE_CASES_META, true );
+		$has_cases = is_array( $cases ) && ! empty( $cases );
+		if ( ! $has_cases ) {
 			$cases = self::default_cases();
 		}
+		Saito_CE_Templates::render_picker( $post, $has_cases );
 		?>
 		<p class="description">
 			<?php esc_html_e( 'Une case par jour. Cliquez sur une case pour renseigner sa date de déblocage, son code promo, etc. La case n’est révélable par les visiteurs qu’à partir de sa date (vérifié côté serveur). Le code promo doit déjà exister dans WooCommerce : ce plugin se contente de l’appliquer au panier au clic.', 'saito-calendar-event' ); ?>

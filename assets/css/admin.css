@@ -516,3 +516,16 @@ body.saito-ce-admin-modal-open .select2-container--open .select2-dropdown {
 #saito-ce-preview .saito-ce-case {
 	cursor: default;
 }
+
+/* Encart « Partir d'un modèle » (onglet Cases, cf. Saito_CE_Templates::render_picker()). */
+.saito-ce-template-picker {
+	margin: 0 0 16px;
+	padding: 4px 12px 8px;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #2271b1;
+	background: #f6f7f7;
+}
+
+.saito-ce-template-picker select {
+	max-width: 100%;
+}

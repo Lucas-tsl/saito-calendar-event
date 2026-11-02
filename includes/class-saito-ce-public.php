@@ -149,6 +149,14 @@ class Saito_CE_Public {
 		$cal_classes = 'saito-ce-calendar saito-ce-style-' . $style;
 		if ( $arrangement ) {
 			$cal_classes .= ' saito-ce-mosaic' . ( '' !== $first_cell['area'] ? ' saito-ce-mosaic-fixed' : '' );
+			// Disposition fixe sur moins de 6 colonnes (semaine de 8 cases : 4).
+			$layouts = self::mosaic_layouts();
+			if ( '' !== $first_cell['area'] && isset( $layouts[ count( $arrangement ) ] ) ) {
+				$columns = self::layout_columns( $layouts[ count( $arrangement ) ] );
+				if ( 6 !== $columns ) {
+					$cal_classes .= ' saito-ce-mosaic-cols-' . $columns;
+				}
+			}
 		}
 		if ( $header ) {
 			$cal_classes .= ' has-header';
@@ -275,10 +283,51 @@ class Saito_CE_Public {
 	);
 
 	/**
+	 * Place fixe de chaque jour d'un calendrier 1→8 (une semaine, ex. la
+	 * Black Week du lundi au Cyber Monday) sur une grille de 4×4 : la
+	 * première ligne 1→4, puis les deux grandes portes au centre, le 5
+	 * (Black Friday) et le 8 (Cyber Monday), puis le 6 et le 7 en portes
+	 * larges. Couvre exactement les 16 cellules (tests/test-mosaic-layout.php).
+	 */
+	const WEEK_LAYOUT = array(
+		1 => array( 1, 1, 1, 1 ),
+		2 => array( 1, 2, 1, 1 ),
+		3 => array( 1, 3, 1, 1 ),
+		4 => array( 1, 4, 1, 1 ),
+		5 => array( 2, 1, 2, 2 ),
+		8 => array( 2, 3, 2, 2 ),
+		6 => array( 4, 1, 1, 2 ),
+		7 => array( 4, 3, 1, 2 ),
+	);
+
+	/**
+	 * Dispositions fixes, par nombre de cases (jours 1→N consécutifs).
+	 *
+	 * @return array nombre de cases => disposition (jour => ligne, colonne, hauteur, largeur).
+	 */
+	public static function mosaic_layouts() {
+		return array(
+			24 => self::MOSAIC_LAYOUT,
+			8  => self::WEEK_LAYOUT,
+		);
+	}
+
+	/**
+	 * Nombre de colonnes d'une disposition fixe.
+	 */
+	public static function layout_columns( $layout ) {
+		$columns = 0;
+		foreach ( $layout as $cell ) {
+			$columns = max( $columns, $cell[1] + $cell[3] - 1 );
+		}
+		return $columns;
+	}
+
+	/**
 	 * Habillages à portes de tailles variées.
 	 */
 	public static function is_mosaic_style( $style ) {
-		return in_array( $style, array( 'sparkle', 'floral-blue', 'floral-gold', 'floral-duo' ), true );
+		return in_array( $style, array( 'sparkle', 'floral-blue', 'floral-gold', 'floral-duo', 'black-week' ), true );
 	}
 
 	/**
@@ -286,8 +335,8 @@ class Saito_CE_Public {
 	 * chargée en plus de frontend.css seulement quand il est utilisé.
 	 */
 	public static function style_sheet( $style ) {
-		if ( 'sparkle' === $style ) {
-			return 'sparkle';
+		if ( 'sparkle' === $style || 'black-week' === $style ) {
+			return $style;
 		}
 		if ( in_array( $style, array( 'floral-blue', 'floral-gold', 'floral-duo' ), true ) ) {
 			return 'floral';
@@ -298,8 +347,8 @@ class Saito_CE_Public {
 	/**
 	 * Forme et place de chaque jour, dans l'ordre d'affichage.
 	 *
-	 * Calendrier 1→24 : disposition fixe MOSAIC_LAYOUT, triée ligne par
-	 * ligne. Sinon (autre nombre de cases) : motif répété toutes les 12
+	 * Calendrier 1→24 ou 1→8 : disposition fixe (MOSAIC_LAYOUT, WEEK_LAYOUT),
+	 * triée ligne par ligne. Sinon (autre nombre de cases) : motif répété toutes les 12
 	 * cases (une grande porte, deux hautes, une large), la dernière case en
 	 * grande porte, placement automatique par la grille.
 	 *
@@ -311,8 +360,9 @@ class Saito_CE_Public {
 		sort( $days );
 		$result = array();
 
-		if ( range( 1, 24 ) === $days ) {
-			$layout = self::MOSAIC_LAYOUT;
+		$layouts = self::mosaic_layouts();
+		if ( $days && isset( $layouts[ count( $days ) ] ) && range( 1, count( $days ) ) === $days ) {
+			$layout = $layouts[ count( $days ) ];
 			uasort(
 				$layout,
 				function ( $a, $b ) {
